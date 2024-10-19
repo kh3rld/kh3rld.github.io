@@ -5,10 +5,12 @@ import (
 	"html/template"
 	"log"
 	"net/http"
+	"path/filepath"
 )
 
 // TemplateCache to hold precompiled templates
 var TemplateCache = make(map[string]*template.Template)
+var fn = template.FuncMap{}
 
 // RenderServerErrorTemplate renders an error template with a status code and message
 func RenderServerErrorTemplate(w http.ResponseWriter, statusCode int, errMsg string) {
@@ -93,4 +95,54 @@ func RenderTemplate(w http.ResponseWriter, tmpl string, data interface{}) {
 		log.Printf("ERROR: %s", errMsg)
 		RenderServerErrorTemplate(w, http.StatusInternalServerError, errMsg)
 	}
+}
+
+// LoadTemplates loads and caches templates
+func LoadTemplates() error {
+	cache := map[string]*template.Template{}
+
+	// Find the project root
+	baseDir, err := FindProjectRoot("web", "templates")
+	if err != nil {
+		return fmt.Errorf("could not find project root: %v", err)
+	}
+
+	// Match all page templates
+	tempDir := filepath.Join(baseDir, "*.page.html")
+	pages, err := filepath.Glob(tempDir)
+	if err != nil {
+		return fmt.Errorf("error globbing templates: %v", err)
+	}
+
+	for _, page := range pages {
+		name := filepath.Base(page)
+		ts, err := template.New(name).Funcs(fn).ParseFiles(page) // Assuming 'fn' is your function map
+		if err != nil {
+			log.Printf("Error parsing template %s: %v", name, err)
+			return fmt.Errorf("error parsing template: %s %v", name, err)
+		}
+
+		// Match layout files
+		layoutPath := filepath.Join(baseDir, "*.layout.html")
+		matches, err := filepath.Glob(layoutPath)
+		if err != nil {
+			return fmt.Errorf("error finding layout files: %v", err)
+		}
+
+		// Parse layout files if any exist
+		if len(matches) > 0 {
+			ts, err = ts.ParseGlob(layoutPath)
+			if err != nil {
+				return fmt.Errorf("error parsing layout files: %v", err)
+			}
+		}
+
+		// Cache the compiled template
+		cache[name] = ts
+		log.Printf("Loaded template: %s", name) // Log successful load
+	}
+
+	// Assign the populated cache to the global variable
+	TemplateCache = cache
+	return nil
 }
