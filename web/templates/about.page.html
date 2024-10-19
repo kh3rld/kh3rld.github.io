@@ -1,0 +1,526 @@
+<html>
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>About Kherld Hussein | Software Enginner</title>
+    <style>
+      :root {
+        --bg-color: #0a0a0a;
+        --text-color: #e0e0e0;
+        --accent-color: #00ff99;
+        --secondary-accent: #ff00ff;
+      }
+
+      * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+      }
+
+      body {
+        font-family: "Roboto", sans-serif;
+        background-color: var(--bg-color);
+        color: var(--text-color);
+        line-height: 1.6;
+        overflow-x: hidden;
+      }
+
+      .container {
+        max-width: 1200px;
+        margin: 0 auto;
+        padding: 40px 20px;
+      }
+
+      header {
+        text-align: center;
+        margin-bottom: 50px;
+      }
+
+      h1 {
+        font-size: 3rem;
+        color: var(--accent-color);
+        margin-bottom: 20px;
+        text-transform: uppercase;
+        letter-spacing: 3px;
+      }
+
+      .about-content {
+        display: flex;
+        justify-content: space-between;
+        align-items: flex-start;
+        flex-wrap: wrap;
+      }
+
+      .about-text {
+        flex-basis: 60%;
+      }
+
+      .about-image {
+        flex-basis: 35%;
+        position: relative;
+      }
+
+      .profile-img-container {
+        position: relative;
+        width: 100%;
+        padding-bottom: 125%; /* 4:5 aspect ratio */
+        overflow: hidden;
+      }
+
+      .profile-img {
+        position: absolute;
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+        border-radius: 30% 70% 70% 30% / 30% 30% 70% 70%;
+        box-shadow: 0 0 20px rgba(0, 255, 153, 0.3);
+        transition: all 0.5s ease-in-out;
+      }
+
+      .profile-img:hover {
+        border-radius: 70% 30% 30% 70% / 70% 70% 30% 30%;
+      }
+
+      h2 {
+        font-size: 2rem;
+        color: var(--secondary-accent);
+        margin-bottom: 20px;
+      }
+
+      p {
+        margin-bottom: 20px;
+        font-size: 1.1rem;
+      }
+
+      .skills {
+        display: flex;
+        flex-wrap: wrap;
+        margin-top: 30px;
+      }
+
+      .skill-tag {
+        background-color: rgba(255, 255, 255, 0.1);
+        color: var(--accent-color);
+        padding: 5px 15px;
+        border-radius: 20px;
+        margin: 5px;
+        font-size: 0.9rem;
+        transition: all 0.3s ease;
+      }
+
+      .skill-tag:hover {
+        background-color: var(--accent-color);
+        color: var(--bg-color);
+        transform: translateY(-3px);
+      }
+
+      .quote {
+        font-style: italic;
+        font-size: 1.2rem;
+        color: var(--secondary-accent);
+        text-align: center;
+        margin: 40px 0;
+        padding: 20px;
+        border-left: 4px solid var(--accent-color);
+        background-color: rgba(255, 255, 255, 0.05);
+      }
+
+      .button-container {
+        display: flex;
+        justify-content: center;
+        margin-top: 40px;
+        gap: 20px;
+      }
+
+      .button {
+        padding: 12px 24px;
+        font-size: 1rem;
+        text-transform: uppercase;
+        letter-spacing: 1px;
+        font-weight: bold;
+        text-decoration: none;
+        border-radius: 50px;
+        transition: all 0.3s ease;
+        position: relative;
+        overflow: hidden;
+      }
+
+      .button::before {
+        content: "";
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background: linear-gradient(
+          45deg,
+          var(--accent-color),
+          var(--secondary-accent)
+        );
+        opacity: 0;
+        transition: opacity 0.3s ease;
+        z-index: -1;
+      }
+
+      .button:hover::before {
+        opacity: 1;
+      }
+
+      .button-primary {
+        background-color: var(--accent-color);
+        color: var(--bg-color);
+      }
+
+      .button-secondary {
+        background-color: transparent;
+        color: var(--accent-color);
+        border: 2px solid var(--accent-color);
+      }
+
+      .button:hover {
+        transform: translateY(-3px);
+        box-shadow: 0 5px 15px rgba(0, 255, 153, 0.3);
+        color: var(--bg-color);
+      }
+
+      .experience {
+        margin-top: 40px;
+      }
+
+      .experience h3 {
+        font-size: 1.5rem;
+        color: var(--accent-color);
+        margin-bottom: 15px;
+      }
+
+      .company {
+        background-color: rgba(255, 255, 255, 0.05);
+        padding: 20px;
+        border-radius: 10px;
+        margin-bottom: 20px;
+        transition: all 0.3s ease;
+      }
+
+      .company:hover {
+        transform: translateY(-5px);
+        box-shadow: 0 5px 15px rgba(0, 255, 153, 0.2);
+      }
+
+      .company h4 {
+        color: var(--secondary-accent);
+        margin-bottom: 10px;
+      }
+
+      .company p {
+        font-size: 0.95rem;
+        opacity: 0.8;
+      }
+
+      @media (max-width: 768px) {
+        .about-content {
+          flex-direction: column;
+        }
+        .about-text,
+        .about-image {
+          flex-basis: 100%;
+        }
+        .about-image {
+          margin-top: 30px;
+        }
+        .button-container {
+          flex-direction: column;
+          align-items: center;
+        }
+      }
+
+      .particle {
+        position: absolute;
+        border-radius: 50%;
+      }
+
+      @keyframes float {
+        0% {
+          transform: translateY(0px);
+        }
+        50% {
+          transform: translateY(-20px);
+        }
+        100% {
+          transform: translateY(0px);
+        }
+      }
+
+      .tech-icon {
+        position: absolute;
+        font-size: 2rem;
+        color: var(--accent-color);
+        animation: float 3s ease-in-out infinite;
+      }
+    </style>
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.1/css/all.min.css"
+    />
+  </head>
+  <body>
+    <div class="container">
+      <header>
+        <h1>About Kherld Hussein</h1>
+      </header>
+      <div class="about-content">
+        <div class="about-text">
+          <h2>Passionate Developer &amp; Tech Enthusiast</h2>
+          <p>
+            Hello there! I'm Kherld Hussein, a software engineer with a burning
+            passion for crafting elegant solutions to complex problems. With
+            over a decade of experience in the tech industry, I've had the
+            privilege of working on a diverse range of projects that have shaped
+            my expertise and fueled my curiosity.
+          </p>
+          <p>
+            My journey in the world of programming began with a simple "Hello,
+            World!" program, and since then, I've been on an exciting adventure,
+            constantly learning and evolving. I specialize in languages like
+            Rust, Go, and Dart, always pushing the boundaries of what's possible
+            in software development.
+          </p>
+          <p>
+            When I'm not coding, you can find me exploring the latest tech
+            trends, contributing to open-source projects, or mentoring aspiring
+            developers. I believe in the power of technology to change lives and
+            am committed to creating software that makes a positive impact on
+            the world.
+          </p>
+          <div class="skills">
+            <span class="skill-tag">Rust</span>
+            <span class="skill-tag">Go</span>
+            <span class="skill-tag">Dart</span>
+            <span class="skill-tag">JavaScript</span>
+            <span class="skill-tag">React</span>
+            <span class="skill-tag">Node.js</span>
+            <span class="skill-tag">Docker</span>
+            <span class="skill-tag">Kubernetes</span>
+            <span class="skill-tag">Machine Learning</span>
+            <span class="skill-tag">Blockchain</span>
+          </div>
+          <div class="experience">
+            <h3>Professional Experience</h3>
+            <div class="company">
+              <h4>Full-Stack Software Engineer at Zone01 Kisumu.</h4>
+              <p>2024 - Present</p>
+              <p>
+                Leading development of cutting-edge AI-powered solutions,
+                focusing on scalability and performance optimization.
+              </p>
+            </div>
+            
+            <!-- <div class="company">
+              <h4>Senior Software Developer at IME Inc.</h4>
+              <p>2021 - 2024</p>
+              <p>
+                Developed and maintained large-scale web applications using
+                (Dart)Flutter, Rust, and GraphQL.
+              </p>
+            </div>
+            <div class="company">
+              <h4>Opensource Software Engineer</h4>
+              <p>2019 - 2021</p>
+              <p>
+                Worked on mobile app development using Flutter and contributed
+                to backend services in Go.
+              </p>
+            </div> -->
+            
+          </div>
+        </div>
+        <div class="about-image">
+          <div class="profile-img-container">
+            <img
+              src="../static/img/me.jpg"
+              alt="Kherld Hussein profile picture"
+              class="profile-img"
+              width="400"
+              height="500"
+            />
+          </div>
+          <i class="fab fa-rust tech-icon" style="top: 10%; left: 10%"></i>
+          <i class="fab fa-golang tech-icon" style="top: 20%; right: 10%"></i>
+          <i class="fab fa-react tech-icon" style="bottom: 15%; left: 15%"></i>
+          <i
+            class="fab fa-node-js tech-icon"
+            style="bottom: 25%; right: 15%"
+          ></i>
+        </div>
+      </div>
+      <div class="quote">
+        "The only way to do great work is to love what you do." - Steve Jobs
+      </div>
+      <div class="button-container">
+        <a href="/index.html" class="button button-primary">Back to Home</a>
+        <a href="/web/templates/contact.page.html" class="button button-secondary">Contact Me</a>
+      </div>
+    </div>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.9.1/gsap.min.js"></script>
+    <script>
+      // Floating particles animation
+      const colors = ["#00ff99", "#ff00ff", "#00ffff"];
+      const numParticles = 50;
+
+      for (let i = 0; i < numParticles; i++) {
+        let particle = document.createElement("div");
+        particle.className = "particle";
+        document.body.appendChild(particle);
+
+        gsap.set(particle, {
+          x: Math.random() * window.innerWidth,
+          y: Math.random() * window.innerHeight,
+          backgroundColor: colors[Math.floor(Math.random() * colors.length)],
+          scale: Math.random() * 0.5 + 0.5,
+        });
+
+        gsap.to(particle, {
+          duration: Math.random() * 2 + 1,
+          x: "+=50",
+          y: "+=50",
+          repeat: -1,
+          yoyo: true,
+          ease: "sine.inOut",
+        });
+
+        gsap.to(particle, {
+          duration: Math.random() * 2 + 1,
+          opacity: 0.2,
+          repeat: -1,
+          yoyo: true,
+          ease: "sine.inOut",
+        });
+      }
+
+      // Entrance animations
+      gsap.from("header", { duration: 1, y: -50, opacity: 0 });
+      gsap.from(".about-text", { duration: 1, x: -50, opacity: 0, delay: 0.5 });
+      gsap.from(".about-image", { duration: 1, x: 50, opacity: 0, delay: 0.5 });
+      gsap.from(".skill-tag", {
+        duration: 0.5,
+        scale: 0,
+        opacity: 0,
+        stagger: 0.1,
+        delay: 1,
+      });
+      gsap.from(".quote", { duration: 1, y: 50, opacity: 0, delay: 1.5 });
+      gsap.from(".button", {
+        duration: 0.5,
+        scale: 0,
+        opacity: 0,
+        stagger: 0.2,
+        delay: 2,
+      });
+      gsap.from(".company", {
+        duration: 0.5,
+        y: 50,
+        opacity: 0,
+        stagger: 0.2,
+        delay: 1,
+      });
+
+      // Hover effect for skill tags
+      document.querySelectorAll(".skill-tag").forEach((tag) => {
+        tag.addEventListener("mouseenter", () => {
+          gsap.to(tag, {
+            duration: 0.3,
+            y: -3,
+            scale: 1.1,
+            ease: "power1.out",
+          });
+        });
+        tag.addEventListener("mouseleave", () => {
+          gsap.to(tag, { duration: 0.3, y: 0, scale: 1, ease: "power1.out" });
+        });
+      });
+
+      // Animate tech icons
+      gsap.to(".tech-icon", {
+        y: -20,
+        duration: 2,
+        repeat: -1,
+        yoyo: true,
+        ease: "sine.inOut",
+        stagger: 0.5,
+      });
+
+      // Image color pop effect
+      const profileImg = document.querySelector(".profile-img");
+
+      profileImg.addEventListener("mouseover", () => {
+        gsap.to(profileImg, {
+          duration: 0.5,
+          filter: "saturate(1.5) contrast(1.2)",
+          scale: 1.05,
+          ease: "power2.out",
+        });
+      });
+
+      profileImg.addEventListener("mouseout", () => {
+        gsap.to(profileImg, {
+          duration: 0.5,
+          filter: "saturate(1) contrast(1)",
+          scale: 1,
+          ease: "power2.out",
+        });
+      });
+
+      // Random shape morphing for profile image
+      function generateRandomShape() {
+        const randomness = () => Math.floor(Math.random() * 71) + 30; // 30 to 100
+        return `${randomness()}% ${randomness()}% ${randomness()}% ${randomness()}% / ${randomness()}% ${randomness()}% ${randomness()}% ${randomness()}%`;
+      }
+
+      setInterval(() => {
+        gsap.to(profileImg, {
+          duration: 3,
+          borderRadius: generateRandomShape(),
+          ease: "sine.inOut",
+        });
+      }, 5000);
+
+      // Button hover animations
+      document.querySelectorAll(".button").forEach((button) => {
+        button.addEventListener("mouseenter", () => {
+          gsap.to(button, {
+            duration: 0.3,
+            scale: 1.05,
+            ease: "power1.out",
+          });
+        });
+        button.addEventListener("mouseleave", () => {
+          gsap.to(button, {
+            duration: 0.3,
+            scale: 1,
+            ease: "power1.out",
+          });
+        });
+      });
+
+      // Company hover animations
+      document.querySelectorAll(".company").forEach((company) => {
+        company.addEventListener("mouseenter", () => {
+          gsap.to(company, {
+            duration: 0.3,
+            y: -5,
+            boxShadow: "0 5px 15px rgba(0, 255, 153, 0.2)",
+            ease: "power1.out",
+          });
+        });
+        company.addEventListener("mouseleave", () => {
+          gsap.to(company, {
+            duration: 0.3,
+            y: 0,
+            boxShadow: "none",
+            ease: "power1.out",
+          });
+        });
+      });
+    </script>
+  </body>
+</html>

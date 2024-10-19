@@ -1,0 +1,386 @@
+<html>
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Kherld Hussein | Blog</title>
+    <style>
+      :root {
+        --bg-color: #0a0a0a;
+        --text-color: #e0e0e0;
+        --accent-color: #00ff99;
+        --secondary-accent: #ff00ff;
+      }
+
+      * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+      }
+
+      body {
+        font-family: "Roboto", sans-serif;
+        background-color: var(--bg-color);
+        color: var(--text-color);
+        line-height: 1.6;
+        overflow-x: hidden;
+      }
+
+      .container {
+        max-width: 1200px;
+        margin: 0 auto;
+        padding: 40px 20px;
+      }
+
+      header {
+        text-align: center;
+        margin-bottom: 50px;
+      }
+
+      h1 {
+        font-size: 3rem;
+        color: var(--accent-color);
+        margin-bottom: 20px;
+        text-transform: uppercase;
+        letter-spacing: 3px;
+      }
+
+      .blog-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+        gap: 30px;
+      }
+
+      .blog-post {
+        background: rgba(255, 255, 255, 0.05);
+        border-radius: 15px;
+        overflow: hidden;
+        transition: transform 0.3s ease, box-shadow 0.3s ease;
+      }
+
+      .blog-post:hover {
+        transform: translateY(-5px);
+        box-shadow: 0 10px 20px rgba(0, 255, 153, 0.2);
+      }
+
+      .blog-image {
+        width: 100%;
+        height: 200px;
+        object-fit: cover;
+      }
+
+      .blog-content {
+        padding: 20px;
+      }
+
+      .blog-title {
+        font-size: 1.5rem;
+        color: var(--secondary-accent);
+        margin-bottom: 10px;
+      }
+
+      .blog-excerpt {
+        font-size: 1rem;
+        margin-bottom: 15px;
+      }
+
+      .blog-meta {
+        font-size: 0.9rem;
+        color: var(--accent-color);
+        display: flex;
+        justify-content: space-between;
+      }
+
+      .read-more {
+        display: inline-block;
+        background-color: var(--accent-color);
+        color: var(--bg-color);
+        padding: 8px 15px;
+        border-radius: 20px;
+        text-decoration: none;
+        transition: background-color 0.3s ease;
+      }
+
+      .read-more:hover {
+        background-color: var(--secondary-accent);
+      }
+
+      .filters {
+        display: flex;
+        justify-content: center;
+        margin-bottom: 30px;
+        flex-wrap: wrap;
+      }
+
+      .filter-btn {
+        background-color: transparent;
+        border: 2px solid var(--accent-color);
+        color: var(--accent-color);
+        padding: 8px 15px;
+        margin: 5px;
+        border-radius: 20px;
+        cursor: pointer;
+        transition: all 0.3s ease;
+      }
+
+      .filter-btn:hover,
+      .filter-btn.active {
+        background-color: var(--accent-color);
+        color: var(--bg-color);
+      }
+
+      .pagination {
+        display: flex;
+        justify-content: center;
+        margin-top: 40px;
+      }
+
+      .page-btn {
+        background-color: transparent;
+        border: 2px solid var(--accent-color);
+        color: var(--accent-color);
+        padding: 8px 15px;
+        margin: 0 5px;
+        border-radius: 20px;
+        cursor: pointer;
+        transition: all 0.3s ease;
+      }
+
+      .page-btn:hover,
+      .page-btn.active {
+        background-color: var(--accent-color);
+        color: var(--bg-color);
+      }
+    </style>
+  </head>
+  <body>
+    <div class="container">
+      <header>
+        <h1>Tech Insights Blog</h1>
+      </header>
+
+      <div class="filters">
+        <button class="filter-btn active" data-filter="all">All</button>
+        <button class="filter-btn" data-filter="frontend">Front-end</button>
+        <button class="filter-btn" data-filter="backend">Back-end</button>
+        <button class="filter-btn" data-filter="mobile">Mobile</button>
+        <button class="filter-btn" data-filter="ai">AI & ML</button>
+      </div>
+
+      <div class="blog-grid">
+        <article class="blog-post" data-category="frontend">
+          <img
+            src="blog-image-1.jpg"
+            alt="Modern web design trends"
+            class="blog-image"
+          />
+          <div class="blog-content">
+            <h2 class="blog-title">Modern Web Design Trends in 2024</h2>
+            <p class="blog-excerpt">
+              Explore the latest trends shaping the world of web design, from
+              minimalist interfaces to immersive 3D experiences.
+            </p>
+            <div class="blog-meta">
+              <span>October 15, 2024</span>
+              <a href="blog/modern-web-design-trends" class="read-more"
+                >Read More</a
+              >
+            </div>
+          </div>
+        </article>
+
+        <article class="blog-post" data-category="backend">
+          <img
+            src="blog-image-2.jpg"
+            alt="Scalable backend architectures"
+            class="blog-image"
+          />
+          <div class="blog-content">
+            <h2 class="blog-title">Building Scalable Backend Architectures</h2>
+            <p class="blog-excerpt">
+              Learn how to design and implement robust backend systems that can
+              handle millions of users with ease.
+            </p>
+            <div class="blog-meta">
+              <span>June 10, 2024</span>
+              <a href="blog/scalable-backend-architectures" class="read-more"
+                >Read More</a
+              >
+            </div>
+          </div>
+        </article>
+
+        <article class="blog-post" data-category="mobile">
+          <img
+            src="blog-image-3.jpg"
+            alt="Cross-platform mobile development"
+            class="blog-image"
+          />
+          <div class="blog-content">
+            <h2 class="blog-title">
+              The Future of Cross-Platform Mobile Development
+            </h2>
+            <p class="blog-excerpt">
+              Dive into the world of cross-platform frameworks and discover how
+              they're revolutionizing mobile app development.
+            </p>
+            <div class="blog-meta">
+              <span>August 15, 2024</span>
+              <a href="blog/cross-platform-mobile-development" class="read-more"
+                >Read More</a
+              >
+            </div>
+          </div>
+        </article>
+
+        <article class="blog-post" data-category="ai">
+          <img
+            src="blog-image-4.jpg"
+            alt="AI in software development"
+            class="blog-image"
+          />
+          <div class="blog-content">
+            <h2 class="blog-title">AI-Powered Software Development Tools</h2>
+            <p class="blog-excerpt">
+              Explore how artificial intelligence is transforming the software
+              development landscape with smart coding assistants and predictive
+              analytics.
+            </p>
+            <div class="blog-meta">
+              <span>May 30, 2024</span>
+              <a href="blog/ai-powered-software-development" class="read-more"
+                >Read More</a
+              >
+            </div>
+          </div>
+        </article>
+
+        <article class="blog-post" data-category="frontend">
+          <img
+            src="blog-image-5.jpg"
+            alt="Web performance optimization"
+            class="blog-image"
+          />
+          <div class="blog-content">
+            <h2 class="blog-title">Mastering Web Performance Optimization</h2>
+            <p class="blog-excerpt">
+              Learn advanced techniques to supercharge your website's speed and
+              provide a lightning-fast user experience.
+            </p>
+            <div class="blog-meta">
+              <span>May 25, 2024</span>
+              <a href="blog/web-performance-optimization" class="read-more"
+                >Read More</a
+              >
+            </div>
+          </div>
+        </article>
+
+        <article class="blog-post" data-category="backend">
+          <img
+            src="blog-image-6.jpg"
+            alt="Serverless computing"
+            class="blog-image"
+          />
+          <div class="blog-content">
+            <h2 class="blog-title">Embracing Serverless Computing</h2>
+            <p class="blog-excerpt">
+              Discover the benefits of serverless architectures and how they're
+              changing the way we build and deploy applications.
+            </p>
+            <div class="blog-meta">
+              <span>May 20, 2024</span>
+              <a href="blog/embracing-serverless-computing" class="read-more"
+                >Read More</a
+              >
+            </div>
+          </div>
+        </article>
+      </div>
+
+      <div class="pagination">
+        <button class="page-btn active">1</button>
+        <button class="page-btn">2</button>
+        <button class="page-btn">3</button>
+        <button class="page-btn">Next</button>
+      </div>
+    </div>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.9.1/gsap.min.js"></script>
+    <script>
+      // Filter functionality
+      const filterButtons = document.querySelectorAll(".filter-btn");
+      const blogPosts = document.querySelectorAll(".blog-post");
+
+      filterButtons.forEach((button) => {
+        button.addEventListener("click", () => {
+          const filter = button.getAttribute("data-filter");
+
+          filterButtons.forEach((btn) => btn.classList.remove("active"));
+          button.classList.add("active");
+
+          blogPosts.forEach((post) => {
+            const categories = post.getAttribute("data-category").split(" ");
+
+            if (filter === "all" || categories.includes(filter)) {
+              gsap.to(post, {
+                duration: 0.5,
+                scale: 1,
+                opacity: 1,
+                display: "block",
+              });
+            } else {
+              gsap.to(post, {
+                duration: 0.5,
+                scale: 0.8,
+                opacity: 0,
+                display: "none",
+              });
+            }
+          });
+        });
+      });
+
+      // Entrance animations
+      gsap.from("header", { duration: 1, y: -50, opacity: 0 });
+      gsap.from(".filter-btn", {
+        duration: 0.5,
+        y: -20,
+        opacity: 0,
+        stagger: 0.1,
+        delay: 0.5,
+      });
+      gsap.from(".blog-post", {
+        duration: 0.8,
+        y: 50,
+        opacity: 0,
+        stagger: 0.2,
+        delay: 1,
+      });
+
+      // Hover animations for blog posts
+      blogPosts.forEach((post) => {
+        post.addEventListener("mouseenter", () => {
+          gsap.to(post, {
+            duration: 0.3,
+            y: -5,
+            boxShadow: "0 10px 20px rgba(0, 255, 153, 0.2)",
+          });
+        });
+
+        post.addEventListener("mouseleave", () => {
+          gsap.to(post, { duration: 0.3, y: 0, boxShadow: "none" });
+        });
+      });
+
+      // Pagination functionality (for demonstration, not fully implemented)
+      const pageButtons = document.querySelectorAll(".page-btn");
+      pageButtons.forEach((button) => {
+        button.addEventListener("click", () => {
+          pageButtons.forEach((btn) => btn.classList.remove("active"));
+          button.classList.add("active");
+          window.scrollTo({ top: 0, behavior: "smooth" });
+        });
+      });
+    </script>
+  </body>
+</html>
