@@ -35,8 +35,6 @@ for (let i = 0; i < numParticles; i++) {
 // Form submission animation
 const form = document.getElementById("contact-form");
 form.addEventListener("submit", function (e) {
-  e.preventDefault();
-
   gsap.to(form, {
     duration: 0.5,
     opacity: 0,
