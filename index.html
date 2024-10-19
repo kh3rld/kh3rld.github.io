@@ -3,6 +3,24 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Kherld Hussein | Innovative Developer Portfolio</title>
+    <link
+      rel="apple-touch-icon"
+      sizes="180x180"
+      href="/web/static/icons/apple-touch-icon.png"
+    />
+    <link
+      rel="icon"
+      type="image/png"
+      sizes="32x32"
+      href="/web/static/icons/favicon-32x32.png"
+    />
+    <link
+      rel="icon"
+      type="image/png"
+      sizes="16x16"
+      href="/web/static/icons/favicon-16x16.png"
+    />
+    <link rel="manifest" href="/web/static/icons/site.webmanifest" />
     <style>
       :root {
         --bg-color: #0a0a0a;
@@ -64,7 +82,9 @@
       .nav-links a {
         color: var(--text-color);
         text-decoration: none;
-        transition: color 0.3s ease, text-shadow 0.3s ease;
+        transition:
+          color 0.3s ease,
+          text-shadow 0.3s ease;
         font-weight: 500;
       }
 
@@ -227,7 +247,7 @@
         75,
         window.innerWidth / window.innerHeight,
         0.1,
-        1000
+        1000,
       );
       const renderer = new THREE.WebGLRenderer({ alpha: true });
       renderer.setSize(window.innerWidth, window.innerHeight);
@@ -246,7 +266,7 @@
 
       particlesGeometry.setAttribute(
         "position",
-        new THREE.BufferAttribute(posArray, 3)
+        new THREE.BufferAttribute(posArray, 3),
       );
 
       const particlesMaterial = new THREE.PointsMaterial({
@@ -259,7 +279,7 @@
 
       const particlesMesh = new THREE.Points(
         particlesGeometry,
-        particlesMaterial
+        particlesMaterial,
       );
       scene.add(particlesMesh);
 
