@@ -1,0 +1,99 @@
+:root {
+  --bg-color: #0a0a0a;
+  --text-color: #e0e0e0;
+  --accent-color: #00ff99;
+  --secondary-accent: #ff00ff;
+}
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  font-family: "Roboto", sans-serif;
+  background-color: var(--bg-color);
+  color: var(--text-color);
+  line-height: 1.6;
+  overflow-x: hidden;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  height: 100vh;
+  text-align: center;
+}
+
+.container {
+  max-width: 800px;
+  padding: 20px;
+}
+
+h1 {
+  font-size: 6rem;
+  color: var(--accent-color);
+  margin-bottom: 20px;
+  animation: glitch 1s linear infinite;
+}
+
+p {
+  font-size: 1.5rem;
+  margin-bottom: 30px;
+}
+
+.error-code {
+  font-family: "Courier New", monospace;
+  background-color: #1e1e1e;
+  padding: 20px;
+  border-radius: 5px;
+  margin-bottom: 30px;
+  text-align: left;
+  overflow-x: auto;
+  max-width: 100%;
+}
+
+.error-code pre {
+  margin: 0;
+}
+
+.home-button {
+  display: inline-block;
+  padding: 12px 24px;
+  background-color: var(--accent-color);
+  color: var(--bg-color);
+  text-decoration: none;
+  border-radius: 5px;
+  font-weight: bold;
+  transition:
+    transform 0.3s ease,
+    box-shadow 0.3s ease;
+}
+
+.home-button:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 4px 15px rgba(0, 255, 153, 0.4);
+}
+
+@keyframes glitch {
+  2%,
+  64% {
+    transform: translate(2px, 0) skew(0deg);
+  }
+  4%,
+  60% {
+    transform: translate(-2px, 0) skew(0deg);
+  }
+  62% {
+    transform: translate(0, 0) skew(5deg);
+  }
+}
+
+.matrix-bg {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  z-index: -1;
+}
