@@ -3,6 +3,7 @@ package utils
 import (
 	"fmt"
 	"html/template"
+	"log"
 	"net/http"
 )
 
@@ -16,7 +17,7 @@ func RenderServerErrorTemplate(w http.ResponseWriter, statusCode int, errMsg str
    <html><head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <link rel="stylesheet" href="../web/static/css/404.css">
+  <link rel="stylesheet" href="../static/css/404.css">
 <title>404 - Page Not Found | Kherld Hussein</title>
 </head>
 <body>
@@ -39,7 +40,7 @@ Have you tried turning it off and on again?
     <a href="/" class="home-button">Return to Home</a>
   </div>
 
-  <script src="../web/static/js/404.js">
+  <script src="../static/js/404.js">
   </script>
 </body>
 </html>
@@ -69,5 +70,27 @@ Have you tried turning it off and on again?
 	// Execute the template
 	if err := t.Execute(w, data); err != nil {
 		http.Error(w, "Internal Server Error", http.StatusInternalServerError)
+	}
+}
+
+// RenderTemplate renders a template with the given data
+func RenderTemplate(w http.ResponseWriter, tmpl string, data interface{}) {
+	// Check if the template is in the cache
+	t, ok := TemplateCache[tmpl]
+	if !ok {
+		errMsg := fmt.Sprintf("Template %s not found", tmpl)
+		log.Printf("ERROR: %s", errMsg)
+		RenderServerErrorTemplate(w, http.StatusNotFound, errMsg)
+		return
+	}
+
+	w.Header().Set("Content-Type", "text/html; charset=utf-8")
+
+	// Execute the template
+	err := t.Execute(w, data)
+	if err != nil {
+		errMsg := fmt.Sprintf("Error rendering template: %v", err)
+		log.Printf("ERROR: %s", errMsg)
+		RenderServerErrorTemplate(w, http.StatusInternalServerError, errMsg)
 	}
 }
