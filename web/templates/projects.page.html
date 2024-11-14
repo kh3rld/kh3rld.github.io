@@ -413,8 +413,18 @@
 
       const GITHUB_USERNAME = "kh3rld";
       const GITHUB_API_URL = `https://api.github.com/users/${GITHUB_USERNAME}/repos`;
-
+      const CACHE_KEY = "ghProjects";
+      const CACHE_EXPIRY = 1000 * 60 * 60;
       async function fetchGithubProjects() {
+        const cachedData = localStorage.getItem(CACHE_KEY);
+        const now = new Date().getTime();
+
+        if (cachedData) {
+          const { timestamp, projects } = JSON.parse(cachedData);
+          if (now - timestamp < CACHE_EXPIRY) {
+            return projects;
+          }
+        }
         try {
           const response = await fetch(GITHUB_API_URL);
           if (!response.ok) throw new Error("GitHub API request failed");
