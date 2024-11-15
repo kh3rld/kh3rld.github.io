@@ -2,31 +2,15 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>About Kherld Hussein | Software Enginner</title>
-    <link
-      rel="apple-touch-icon"
-      sizes="180x180"
-      href="/web/static/icons/apple-touch-icon.png"
-    />
-    <link
-      rel="icon"
-      type="image/png"
-      sizes="32x32"
-      href="/web/static/icons/favicon-32x32.png"
-    />
-    <link
-      rel="icon"
-      type="image/png"
-      sizes="16x16"
-      href="/web/static/icons/favicon-16x16.png"
-    />
-    <link rel="manifest" href="/web/static/icons/site.webmanifest" />
+    <title>About Khalid Hussein | Developer Engineer</title>
     <style>
       :root {
-        --bg-color: #0a0a0a;
-        --text-color: #e0e0e0;
-        --accent-color: #00ff99;
-        --secondary-accent: #ff00ff;
+        --bg-color: #17223f;
+        --text-color: #e5dfc7;
+        --accent-color: #6f8890;
+        --secondary-accent: #4b6474;
+        --neutral-color: #758b93;
+        --dark-accent: #1f3a4b;
       }
 
       * {
@@ -44,9 +28,30 @@
       }
 
       .container {
+        position: relative;
         max-width: 1200px;
         margin: 0 auto;
         padding: 40px 20px;
+        background: linear-gradient(
+          45deg,
+          var(--bg-color),
+          var(--dark-accent),
+          var(--bg-color)
+        );
+        background-size: 200% 200%;
+        animation: morphGradient 15s ease infinite;
+      }
+
+      @keyframes morphGradient {
+        0% {
+          background-position: 0% 50%;
+        }
+        50% {
+          background-position: 100% 50%;
+        }
+        100% {
+          background-position: 0% 50%;
+        }
       }
 
       header {
@@ -56,7 +61,7 @@
 
       h1 {
         font-size: 3rem;
-        color: var(--accent-color);
+        color: var(--text-color);
         margin-bottom: 20px;
         text-transform: uppercase;
         letter-spacing: 3px;
@@ -67,6 +72,7 @@
         justify-content: space-between;
         align-items: flex-start;
         flex-wrap: wrap;
+        perspective: 1000px;
       }
 
       .about-text {
@@ -91,17 +97,13 @@
         height: 100%;
         object-fit: cover;
         border-radius: 30% 70% 70% 30% / 30% 30% 70% 70%;
-        box-shadow: 0 0 20px rgba(0, 255, 153, 0.3);
+        box-shadow: 0 0 20px rgba(111, 136, 144, 0.3);
         transition: all 0.5s ease-in-out;
-      }
-
-      .profile-img:hover {
-        border-radius: 70% 30% 30% 70% / 70% 70% 30% 30%;
       }
 
       h2 {
         font-size: 2rem;
-        color: var(--secondary-accent);
+        color: var(--accent-color);
         margin-bottom: 20px;
       }
 
@@ -117,8 +119,14 @@
       }
 
       .skill-tag {
-        background-color: rgba(255, 255, 255, 0.1);
-        color: var(--accent-color);
+        background: linear-gradient(
+          135deg,
+          var(--dark-accent),
+          var(--secondary-accent)
+        );
+        backdrop-filter: blur(5px);
+        border: 1px solid rgba(255, 255, 255, 0.1);
+        color: var(--text-color);
         padding: 5px 15px;
         border-radius: 20px;
         margin: 5px;
@@ -127,20 +135,18 @@
       }
 
       .skill-tag:hover {
-        background-color: var(--accent-color);
-        color: var(--bg-color);
         transform: translateY(-3px);
       }
 
       .quote {
         font-style: italic;
         font-size: 1.2rem;
-        color: var(--secondary-accent);
+        color: var(--neutral-color);
         text-align: center;
         margin: 40px 0;
         padding: 20px;
         border-left: 4px solid var(--accent-color);
-        background-color: rgba(255, 255, 255, 0.05);
+        background-color: var(--dark-accent);
       }
 
       .button-container {
@@ -190,8 +196,7 @@
       }
 
       .button-secondary {
-        background-color: transparent;
-        color: var(--accent-color);
+        color: var(--text-color);
         border: 2px solid var(--accent-color);
       }
 
@@ -212,7 +217,9 @@
       }
 
       .company {
-        background-color: rgba(255, 255, 255, 0.05);
+        transform-style: preserve-3d;
+        transition: transform 0.6s cubic-bezier(0.4, 0, 0.2, 1);
+        background-color: var(--dark-accent);
         padding: 20px;
         border-radius: 10px;
         margin-bottom: 20px;
@@ -225,7 +232,7 @@
       }
 
       .company h4 {
-        color: var(--secondary-accent);
+        color: var(--accent-color);
         margin-bottom: 10px;
       }
 
@@ -287,9 +294,9 @@
       </header>
       <div class="about-content">
         <div class="about-text">
-          <h2>Software Engineer &amp; Tech Enthusiast</h2>
+          <h2>Software Developer</h2>
           <p>
-            Hello there! I'm Khalid Hussein, a software engineer with a burning
+            Hello there! I'm Khalid Hussein, a software developer with a burning
             passion for crafting elegant solutions to complex problems. With
             over a decade of experience in the tech industry, I've had the
             privilege of working on a diverse range of projects that have shaped
@@ -331,21 +338,20 @@
                 focusing on scalability and performance optimization.
               </p>
             </div>
-
             <!-- <div class="company">
-              <h4>Senior Software Developer at IME Inc.</h4>
-              <p>2021 - 2024</p>
+              <h4>Full Stack Developer at InnovateSoft</h4>
+              <p>2018 - 2021</p>
               <p>
                 Developed and maintained large-scale web applications using
-                (Dart)Flutter, Rust, and GraphQL.
+                React, Node.js, and GraphQL.
               </p>
             </div>
             <div class="company">
-              <h4>Opensource Software Engineer</h4>
-              <p>2019 - 2021</p>
+              <h4>Software Engineer at StartupX</h4>
+              <p>2015 - 2018</p>
               <p>
                 Worked on mobile app development using Flutter and contributed
-                to backend services in Rust.
+                to backend services in Go.
               </p>
             </div> -->
           </div>
@@ -353,7 +359,7 @@
         <div class="about-image">
           <div class="profile-img-container">
             <img
-              src="../static/img/me.jpg"
+              src="../static/img/k_nerd.png"
               alt="Kherld Hussein profile picture"
               class="profile-img"
               width="400"
@@ -362,173 +368,135 @@
           </div>
           <i class="fab fa-rust tech-icon" style="top: 10%; left: 10%"></i>
           <i class="fab fa-golang tech-icon" style="top: 20%; right: 10%"></i>
-          <i
-            class="fab fa-react tech-icon"
-            style="bottom: 15%; left: 15%"
-          ></i>
+          <i class="fab fa-react tech-icon" style="bottom: 15%; left: 15%"></i>
           <i
             class="fab fa-node-js tech-icon"
             style="bottom: 25%; right: 15%"
           ></i>
         </div>
-        <!-- <div
-          class="badge-base LI-profile-badge"
-          data-locale="en_US"
-          data-size="medium"
-          data-theme="dark"
-          data-type="VERTICAL"
-          data-vanity="kherldhussein"
-          data-version="v1"
-        >
-          <a
-            class="badge-base__link LI-simple-link"
-            href="https://ke.linkedin.com/in/kherldhussein?trk=profile-badge"
-            >Khalid Hussein</a
-          >
-        </div> -->
       </div>
       <div class="quote">
         "The only way to do great work is to love what you do." - Steve Jobs
       </div>
       <div class="button-container">
         <a href="/" class="button button-primary">Back to Home</a>
-        <a
-          href="/web/templates/contact.page.html"
-          class="button button-secondary"
+        <a href="./contact.page.html" class="button button-secondary"
           >Contact Me</a
         >
       </div>
     </div>
-    <script
-      src="https://platform.linkedin.com/badges/js/profile.js"
-      async
-      defer
-      type="text/javascript"
-    ></script>
+
     <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.9.1/gsap.min.js"></script>
     <script>
-      // Floating particles animation
-      const colors = ["#00ff99", "#ff00ff", "#00ffff"];
-      const numParticles = 50;
+      const createParticles = () => {
+        const colors = ["#e5dfc7", "#6f8890", "#4b6474"];
+        const numParticles = 22; // Reduced for more minimal feel
 
-      for (let i = 0; i < numParticles; i++) {
-        let particle = document.createElement("div");
-        particle.className = "particle";
-        document.body.appendChild(particle);
+        for (let i = 0; i < numParticles; i++) {
+          let particle = document.createElement("div");
+          particle.className = "particle";
+          document.body.appendChild(particle);
 
-        gsap.set(particle, {
-          x: Math.random() * window.innerWidth,
-          y: Math.random() * window.innerHeight,
-          backgroundColor: colors[Math.floor(Math.random() * colors.length)],
-          scale: Math.random() * 0.5 + 0.5,
-        });
-
-        gsap.to(particle, {
-          duration: Math.random() * 2 + 1,
-          x: "+=50",
-          y: "+=50",
-          repeat: -1,
-          yoyo: true,
-          ease: "sine.inOut",
-        });
-
-        gsap.to(particle, {
-          duration: Math.random() * 2 + 1,
-          opacity: 0.2,
-          repeat: -1,
-          yoyo: true,
-          ease: "sine.inOut",
-        });
-      }
-
-      // Entrance animations
-      gsap.from("header", { duration: 1, y: -50, opacity: 0 });
-      gsap.from(".about-text", { duration: 1, x: -50, opacity: 0, delay: 0.5 });
-      gsap.from(".about-image", { duration: 1, x: 50, opacity: 0, delay: 0.5 });
-      gsap.from(".skill-tag", {
-        duration: 0.5,
-        scale: 0,
-        opacity: 0,
-        stagger: 0.1,
-        delay: 1,
-      });
-      gsap.from(".quote", { duration: 1, y: 50, opacity: 0, delay: 1.5 });
-      gsap.from(".button", {
-        duration: 0.5,
-        scale: 0,
-        opacity: 0,
-        stagger: 0.2,
-        delay: 2,
-      });
-      gsap.from(".company", {
-        duration: 0.5,
-        y: 50,
-        opacity: 0,
-        stagger: 0.2,
-        delay: 1,
-      });
-
-      // Hover effect for skill tags
-      document.querySelectorAll(".skill-tag").forEach((tag) => {
-        tag.addEventListener("mouseenter", () => {
-          gsap.to(tag, {
-            duration: 0.3,
-            y: -3,
-            scale: 1.1,
-            ease: "power1.out",
+          gsap.set(particle, {
+            x: Math.random() * window.innerWidth,
+            y: Math.random() * window.innerHeight,
+            backgroundColor: colors[Math.floor(Math.random() * colors.length)],
+            scale: Math.random() * 0.3 + 0.2, // Smaller particles
+            width: "4px",
+            height: "4px",
+            opacity: 0.6,
           });
-        });
-        tag.addEventListener("mouseleave", () => {
-          gsap.to(tag, { duration: 0.3, y: 0, scale: 1, ease: "power1.out" });
-        });
-      });
 
-      // Animate tech icons
-      gsap.to(".tech-icon", {
-        y: -20,
-        duration: 2,
-        repeat: -1,
-        yoyo: true,
-        ease: "sine.inOut",
-        stagger: 0.5,
-      });
+          // Create bezier path animation
+          gsap.to(particle, {
+            duration: Math.random() * 4 + 3,
+            motionPath: {
+              path: [
+                { x: "+=100", y: "+=100" },
+                { x: "-=150", y: "+=50" },
+                { x: "+=100", y: "-=100" },
+              ],
+              curviness: 2,
+            },
+            repeat: -1,
+            ease: "none",
+          });
+        }
+      };
 
-      // Image color pop effect
-      const profileImg = document.querySelector(".profile-img");
+      createParticles();
 
-      profileImg.addEventListener("mouseover", () => {
-        gsap.to(profileImg, {
-          duration: 0.5,
-          filter: "saturate(1.5) contrast(1.2)",
+      const profileImgContainer = document.querySelector(
+        ".profile-img-container"
+      );
+
+      profileImgContainer.addEventListener("mouseenter", () => {
+        gsap.to(".profile-img", {
+          duration: 0.8,
           scale: 1.05,
+          borderRadius: "60% 40% 30% 70% / 60% 30% 70% 40%",
           ease: "power2.out",
         });
       });
 
-      profileImg.addEventListener("mouseout", () => {
-        gsap.to(profileImg, {
-          duration: 0.5,
-          filter: "saturate(1) contrast(1)",
+      profileImgContainer.addEventListener("mouseleave", () => {
+        gsap.to(".profile-img", {
+          duration: 1,
           scale: 1,
-          ease: "power2.out",
+          borderRadius: "30% 70% 70% 30% / 30% 30% 70% 70%",
+          ease: "power2.inOut",
         });
       });
 
-      // Random shape morphing for profile image
-      function generateRandomShape() {
-        const randomness = () => Math.floor(Math.random() * 71) + 30; // 30 to 100
-        return `${randomness()}% ${randomness()}% ${randomness()}% ${randomness()}% / ${randomness()}% ${randomness()}% ${randomness()}% ${randomness()}%`;
-      }
+      gsap.from("header", {
+        duration: 1.5,
+        y: -100,
+        opacity: 0,
+        ease: "power4.out",
+      });
 
-      setInterval(() => {
-        gsap.to(profileImg, {
-          duration: 3,
-          borderRadius: generateRandomShape(),
-          ease: "sine.inOut",
+      gsap.from(".about-text", {
+        duration: 1.2,
+        x: -100,
+        opacity: 0,
+        ease: "power3.out",
+        delay: 0.3,
+      });
+
+      gsap.from(".about-image", {
+        duration: 1.2,
+        rotationY: 45,
+        x: 100,
+        opacity: 0,
+        ease: "power3.out",
+        delay: 0.3,
+      });
+
+      gsap.from(".skill-tag", {
+        duration: 0.8,
+        scale: 0,
+        opacity: 0,
+        rotation: -15,
+        stagger: {
+          amount: 1.5,
+          from: "random",
+        },
+        ease: "back.out(1.7)",
+      });
+
+      const companyCards = document.querySelectorAll(".company");
+      companyCards.forEach((card, index) => {
+        gsap.from(card, {
+          duration: 1,
+          y: 100,
+          opacity: 0,
+          rotation: 5,
+          transformOrigin: "left bottom",
+          ease: "power3.out",
+          delay: 0.2 * index,
         });
-      }, 5000);
+      });
 
-      // Button hover animations
       document.querySelectorAll(".button").forEach((button) => {
         button.addEventListener("mouseenter", () => {
           gsap.to(button, {
@@ -546,24 +514,13 @@
         });
       });
 
-      // Company hover animations
-      document.querySelectorAll(".company").forEach((company) => {
-        company.addEventListener("mouseenter", () => {
-          gsap.to(company, {
-            duration: 0.3,
-            y: -5,
-            boxShadow: "0 5px 15px rgba(0, 255, 153, 0.2)",
-            ease: "power1.out",
-          });
-        });
-        company.addEventListener("mouseleave", () => {
-          gsap.to(company, {
-            duration: 0.3,
-            y: 0,
-            boxShadow: "none",
-            ease: "power1.out",
-          });
-        });
+      gsap.to(".tech-icon", {
+        y: -20,
+        duration: 2,
+        repeat: -1,
+        yoyo: true,
+        ease: "sine.inOut",
+        stagger: 0.5,
       });
     </script>
   </body>
