@@ -78,12 +78,23 @@
         );
         -webkit-background-clip: text;
         -webkit-text-fill-color: transparent;
+        opacity: 0;
+        animation: fadeIn 1s forwards 0.5s;
+      }
+
+      @keyframes fadeIn {
+        to {
+          opacity: 1;
+        }
       }
 
       .hero-subtitle {
         font-size: 1.5rem;
         color: var(--neutral-color);
         margin-bottom: 2rem;
+        font-style: italic;
+        opacity: 0;
+        animation: fadeIn 1s forwards 1s;
       }
 
       .projects-section {
@@ -96,17 +107,6 @@
         grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
         gap: 2rem;
         margin-top: 3rem;
-      }
-
-      .project-card {
-        background: var(--bg-color);
-        border-radius: 15px;
-        padding: 2rem;
-        transition: transform 0.3s ease;
-      }
-
-      .project-card:hover {
-        transform: translateY(-10px);
       }
 
       .code-background {
@@ -141,6 +141,8 @@
         transition: color 0.3s ease;
         font-weight: 500;
         position: relative;
+        opacity: 0;
+        animation: fadeIn 1s forwards 1.5s;
       }
 
       .nav-menu a::after {
@@ -177,6 +179,10 @@
         position: relative;
         overflow: hidden;
         transition: all 0.3s ease;
+        background: var(--accent-color);
+        color: var(--bg-color);
+        opacity: 0;
+        animation: fadeIn 1s forwards 2s;
       }
 
       .button::before {
@@ -197,21 +203,6 @@
 
       .button:hover::before {
         left: 100%;
-      }
-
-      .button-primary {
-        background: var(--accent-color);
-        color: var(--bg-color);
-      }
-
-      .button-secondary {
-        border: 2px solid var(--accent-color);
-        color: var(--text-color);
-      }
-
-      .button:hover {
-        transform: translateY(-3px);
-        box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
       }
 
       @keyframes float {
@@ -242,6 +233,35 @@
           font-size: 0.9rem;
         }
       }
+
+      /* Custom Background Animation */
+      @keyframes c4dAnimation {
+        0% {
+          transform: translate(0, 0) scale(1);
+        }
+        50% {
+          transform: translate(30px, -20px) scale(1.05);
+        }
+        100% {
+          transform: translate(0, 0) scale(1);
+        }
+      }
+
+      .animated-background {
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        animation: c4dAnimation 15s ease-in-out infinite;
+        background: radial-gradient(
+          circle,
+          rgba(111, 136, 144, 0.5),
+          transparent
+        );
+        opacity: 0.3;
+        z-index: 0;
+      }
     </style>
     <link
       rel="stylesheet"
@@ -258,13 +278,22 @@
     </nav>
 
     <section class="hero">
+      <div class="animated-background"></div>
       <div class="code-background"></div>
       <div class="hero-content">
         <h1>Khalid Hussein</h1>
         <p class="hero-subtitle">Software Engineer</p>
         <div class="button-container">
-          <a href="./web/templates/about.page.html" class="button button-primary">Learn More</a>
-          <a href="./web/templates/contact.page.html" class="button button-secondary">Get in Touch</a>
+          <a
+            href="./web/templates/about.page.html"
+            class="button button-primary"
+            >Learn More</a
+          >
+          <a
+            href="./web/templates/contact.page.html"
+            class="button button-secondary"
+            >Get in Touch</a
+          >
         </div>
       </div>
     </section>
@@ -310,8 +339,6 @@
 
       generateCodeRain();
 
-      gsap.registerPlugin(ScrollTrigger);
-
       gsap.from(".hero-content", {
         duration: 1.5,
         y: 50,
@@ -324,21 +351,6 @@
         y: -50,
         opacity: 0,
         ease: "power2.out",
-      });
-
-      // Enhanced Animations
-      gsap.to(".hero-content", {
-        scrollTrigger: {
-          trigger: ".hero",
-          start: "top top",
-          end: "bottom top",
-          scrub: 1,
-        },
-        y: 200,
-        opacity: 0.5,
-        scale: 0.9,
-        rotationX: 10,
-        ease: "power2.inOut",
       });
 
       // Smooth Nav Menu Hover Effect
@@ -360,32 +372,6 @@
             scale: 1,
             ease: "power2.in",
           });
-        });
-      });
-
-      // Curved Path Animation for Code Rain
-      function createCurvedPath() {
-        return `M ${Math.random() * window.innerWidth} 0 
-                C ${Math.random() * window.innerWidth} ${
-          window.innerHeight * 0.3
-        },
-                  ${Math.random() * window.innerWidth} ${
-          window.innerHeight * 0.6
-        },
-                  ${Math.random() * window.innerWidth} ${window.innerHeight}`;
-      }
-
-      const codeElements = document.querySelectorAll(".code-background div");
-      codeElements.forEach((element) => {
-        const path = createCurvedPath();
-        gsap.to(element, {
-          duration: Math.random() * 3 + 2,
-          motionPath: {
-            path: path,
-            autoRotate: true,
-          },
-          ease: "power1.inOut",
-          repeat: -1,
         });
       });
 
