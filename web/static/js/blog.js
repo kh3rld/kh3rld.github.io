@@ -54,7 +54,7 @@ blogPosts.forEach((post) => {
     gsap.to(post, {
       duration: 0.3,
       y: -5,
-      boxShadow: "0 10px 20px rgba(0, 255, 153, 0.2)",
+      boxShadow: "0 10px 20px rgba(111, 136, 144, 0.2)",
     });
   });
 
