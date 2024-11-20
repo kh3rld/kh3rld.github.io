@@ -1,10 +1,14 @@
 :root {
-  --bg-color: #0a0a0a;
-  --text-color: #e0e0e0;
-  --accent-color: #00ff99;
-  --secondary-accent: #ff00ff;
-  --gradient-1: linear-gradient(45deg, #00ff9980, #ff00ff80);
-  --card-bg: rgba(255, 255, 255, 0.05);
+  --bg-color: #17223f; /* Dark Charcoal Blue */
+  --text-color: #e5dfc7; /* Soft Beige */
+  --accent-color: #6f8890; /* Muted Blue */
+  --secondary-accent: #4b6474; /* Dusty Teal */
+  --gradient-1: linear-gradient(
+    45deg,
+    #6f889080,
+    #4b647480
+  ); /* Muted Blue to Dusty Teal */
+  --card-bg: rgba(229, 223, 199, 0.05); /* Soft Beige with transparency */
 }
 
 * {
@@ -21,12 +25,12 @@ body {
   overflow-x: hidden;
   background-image: radial-gradient(
       circle at 10% 20%,
-      rgba(0, 255, 153, 0.1) 0%,
+      rgba(111, 136, 144, 0.1) 0%,
       transparent 20%
     ),
     radial-gradient(
       circle at 90% 80%,
-      rgba(255, 0, 255, 0.1) 0%,
+      rgba(75, 100, 116, 0.1) 0%,
       transparent 20%
     );
 }
@@ -81,12 +85,13 @@ h1::after {
   transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
   position: relative;
   backdrop-filter: blur(10px);
-  border: 1px solid rgba(255, 255, 255, 0.1);
+  border: 1px solid rgba(229, 223, 199, 0.1); /* Adjust border to be Soft Beige */
+  opacity: 0; /* Start invisible for animation */
 }
 
 .project-card:hover {
-  transform: translateY(-10px) rotateX(5deg);
-  box-shadow: 0 20px 40px rgba(0, 255, 153, 0.2);
+  transform: scale(1.05);
+  box-shadow: 0 20px 40px rgba(111, 136, 144, 0.3);
   border-color: var(--accent-color);
 }
 
@@ -103,7 +108,7 @@ h1::after {
 .project-description {
   font-size: 1.1rem;
   margin-bottom: 20px;
-  color: rgba(255, 255, 255, 0.8);
+  color: rgba(229, 223, 199, 0.8);
   line-height: 1.7;
 }
 
@@ -115,14 +120,14 @@ h1::after {
 }
 
 .tech-tag {
-  background: rgba(255, 255, 255, 0.08);
+  background: rgba(229, 223, 199, 0.08);
   color: var(--accent-color);
   padding: 5px 12px;
   border-radius: 20px;
   font-size: 0.9rem;
   font-weight: 500;
   transition: all 0.3s ease;
-  border: 1px solid rgba(0, 255, 153, 0.3);
+  border: 1px solid rgba(111, 136, 144, 0.3);
 }
 
 .tech-tag:hover {
@@ -136,7 +141,7 @@ h1::after {
   gap: 20px;
   margin-bottom: 20px;
   font-size: 0.9rem;
-  color: rgba(255, 255, 255, 0.6);
+  color: rgba(229, 223, 199, 0.6);
 }
 
 .stat {
@@ -214,6 +219,7 @@ h1::after {
 .filter-btn:hover,
 .filter-btn.active {
   color: var(--bg-color);
+  background-color: var(--accent-color);
 }
 
 .loading {
@@ -250,6 +256,73 @@ h1::after {
   font-size: 1.2rem;
 }
 
+.floating-contact {
+  position: fixed;
+  bottom: 40px;
+  right: 40px;
+  background: var(--gradient-1);
+  border-radius: 30px;
+  padding: 15px 25px;
+  display: flex;
+  align-items: center;
+  text-decoration: none;
+  color: var(--bg-color);
+  font-weight: 600;
+  box-shadow: 0 5px 20px rgba(111, 136, 144, 0.3);
+  transform-origin: right bottom;
+  transition: all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+  z-index: 1000;
+}
+
+.floating-contact:hover {
+  transform: scale(1.1) rotate(-5deg);
+  box-shadow: 0 8px 25px rgba(111, 136, 144, 0.4);
+}
+
+.floating-contact-content {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.contact-icon {
+  background: rgba(0, 0, 0, 0.2);
+  width: 30px;
+  height: 30px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.contact-text {
+  font-size: 1.1rem;
+}
+
+.pulse-ring {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 100%;
+  height: 100%;
+  border-radius: 30px;
+  background: var(--gradient-1);
+  opacity: 0;
+  animation: pulse 2s cubic-bezier(0.4, 0, 0.6, 1) infinite;
+}
+
+@keyframes pulse {
+  0% {
+    transform: translate(-50%, -50%) scale(1);
+    opacity: 0.7;
+  }
+  100% {
+    transform: translate(-50%, -50%) scale(1.3);
+    opacity: 0;
+  }
+}
+
 @media (max-width: 768px) {
   .container {
     padding: 20px;
@@ -265,5 +338,15 @@ h1::after {
 
   .project-card {
     padding: 20px;
+  }
+
+  .floating-contact {
+    bottom: 20px;
+    right: 20px;
+    padding: 12px 20px;
+  }
+
+  .contact-text {
+    font-size: 1rem;
   }
 }
