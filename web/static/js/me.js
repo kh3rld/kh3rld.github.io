@@ -1,35 +1,93 @@
-// Three.js background animation
-const scene = new THREE.Scene();
-const camera = new THREE.PerspectiveCamera(
-  75,
-  window.innerWidth / window.innerHeight,
-  0.1,
-  1000
-);
-const renderer = new THREE.WebGLRenderer({ alpha: true });
-renderer.setSize(window.innerWidth, window.innerHeight);
-document.getElementById("bg-animation").appendChild(renderer.domElement);
+const codeChars = "01";
+const codeBackground = document.querySelector(".code-background");
 
-const geometry = new THREE.TorusGeometry(10, 3, 16, 100);
-const material = new THREE.MeshBasicMaterial({
-  color: 0x00ff99,
-  wireframe: true,
-});
-const torus = new THREE.Mesh(geometry, material);
-scene.add(torus);
+function generateCodeRain() {
+  const columns = Math.floor(window.innerWidth / 20);
+  for (let i = 0; i < columns; i++) {
+    const column = document.createElement("div");
+    column.style.position = "absolute";
+    column.style.left = i * 20 + "px";
+    column.style.top = Math.random() * 100 + "%";
+    column.style.color = "var(--accent-color)";
+    codeBackground.appendChild(column);
 
-camera.position.z = 30;
-
-function animate() {
-  requestAnimationFrame(animate);
-  torus.rotation.x += 0.01;
-  torus.rotation.y += 0.005;
-  renderer.render(scene, camera);
+    animateColumn(column);
+  }
 }
-animate();
 
-window.addEventListener("resize", () => {
-  camera.aspect = window.innerWidth / window.innerHeight;
-  camera.updateProjectionMatrix();
-  renderer.setSize(window.innerWidth, window.innerHeight);
+function animateColumn(column) {
+  let text = "";
+  for (let i = 0; i < 20; i++) {
+    text += codeChars[Math.floor(Math.random() * codeChars.length)];
+  }
+  column.textContent = text;
+
+  gsap.to(column, {
+    duration: Math.random() * 2 + 1,
+    y: "+=100%",
+    ease: "none",
+    repeat: -1,
+    opacity: 0,
+    onRepeat: () => {
+      column.style.top = "-100%";
+      column.style.opacity = 1;
+    },
+  });
+}
+
+generateCodeRain();
+
+gsap.from(".hero-content", {
+  duration: 1.5,
+  y: 50,
+  opacity: 0,
+  ease: "power3.out",
+});
+
+gsap.from(".nav-menu", {
+  duration: 1,
+  y: -50,
+  opacity: 0,
+  ease: "power2.out",
+});
+
+// Smooth Nav Menu Hover Effect
+const navLinks = document.querySelectorAll(".nav-menu a");
+navLinks.forEach((link) => {
+  link.addEventListener("mouseenter", (e) => {
+    gsap.to(e.target, {
+      duration: 0.3,
+      y: -3,
+      scale: 1.1,
+      ease: "power2.out",
+    });
+  });
+
+  link.addEventListener("mouseleave", (e) => {
+    gsap.to(e.target, {
+      duration: 0.3,
+      y: 0,
+      scale: 1,
+      ease: "power2.in",
+    });
+  });
+});
+
+// Smooth Page Transitions
+const links = document.querySelectorAll("a");
+links.forEach((link) => {
+  link.addEventListener("click", (e) => {
+    e.preventDefault();
+    const href = link.getAttribute("href");
+
+    gsap.to(".container", {
+      duration: 0.5,
+      opacity: 0,
+      y: -50,
+      ease: "power2.inOut",
+      onComplete: () => {
+        window.location.href = href;
+      },
+    });
+  });
 });
