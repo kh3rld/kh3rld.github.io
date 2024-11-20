@@ -3,7 +3,25 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <link rel="stylesheet" href="../static/css/project.css" />
-    <title>Kherld Hussein | Projects</title>
+    <link
+      rel="apple-touch-icon"
+      sizes="180x180"
+      href="../static/icons/apple-touch-icon.png"
+    />
+    <link
+      rel="icon"
+      type="image/png"
+      sizes="32x32"
+      href="../static/icons/favicon-32x32.png"
+    />
+    <link
+      rel="icon"
+      type="image/png"
+      sizes="16x16"
+      href="../static/icons/favicon-16x16.png"
+    />
+    <link rel="manifest" href="../static/icons/site.webmanifest" />
+    <title>Khalid Hussein | Projects</title>
     <link
       rel="stylesheet"
       href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.1/css/all.min.css"
@@ -21,15 +39,26 @@
           All Projects
         </button>
         <button class="filter-btn" data-filter="web">Web Development</button>
-        <button class="filter-btn" data-filter="mobile">Mobile Apps</button>
+        <!-- <button class="filter-btn" data-filter="mobile">Mobile Apps</button> -->
         <button class="filter-btn" data-filter="ai">AI & ML</button>
         <button class="filter-btn" data-filter="blockchain">Blockchain</button>
       </div>
 
       <div class="projects-grid"></div>
+
+      <a href="/contact" class="floating-contact">
+        <div class="floating-contact-content">
+          <div class="contact-icon">
+            <i class="fas fa-envelope"></i>
+          </div>
+          <span class="contact-text">Let's Talk</span>
+        </div>
+        <div class="pulse-ring"></div>
+      </a>
     </div>
 
     <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.9.1/gsap.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.9.1/MotionPathPlugin.min.js"></script>
     <script src="https://unpkg.com/aos@next/dist/aos.js"></script>
     <script src="../static/js/project.js"></script>
   </body>
