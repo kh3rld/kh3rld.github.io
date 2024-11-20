@@ -1,8 +1,10 @@
 :root {
-  --bg-color: #0a0a0a;
-  --text-color: #e0e0e0;
-  --accent-color: #00ff99;
-  --secondary-accent: #ff00ff;
+  --bg-color: #17223f;
+  --text-color: #e5dfc7;
+  --accent-color: #6f8890;
+  --secondary-accent: #4b6474;
+  --highlight: #758b93;
+  --deep-accent: #1f3a4b;
 }
 
 * {
@@ -28,14 +30,18 @@ body {
 header {
   text-align: center;
   margin-bottom: 50px;
+  background: linear-gradient(45deg, var(--deep-accent), var(--bg-color));
+  padding: 40px;
+  border-radius: 15px;
 }
 
 h1 {
   font-size: 3rem;
-  color: var(--accent-color);
+  color: var(--text-color);
   margin-bottom: 20px;
   text-transform: uppercase;
   letter-spacing: 3px;
+  text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
 }
 
 .blog-grid {
@@ -45,15 +51,16 @@ h1 {
 }
 
 .blog-post {
-  background: rgba(255, 255, 255, 0.05);
+  background: var(--deep-accent);
   border-radius: 15px;
   overflow: hidden;
   transition: transform 0.3s ease, box-shadow 0.3s ease;
+  border: 1px solid rgba(229, 223, 199, 0.1);
 }
 
 .blog-post:hover {
   transform: translateY(-5px);
-  box-shadow: 0 10px 20px rgba(0, 255, 153, 0.2);
+  box-shadow: 0 10px 20px rgba(111, 136, 144, 0.2);
 }
 
 .blog-image {
@@ -68,13 +75,14 @@ h1 {
 
 .blog-title {
   font-size: 1.5rem;
-  color: var(--secondary-accent);
+  color: var(--text-color);
   margin-bottom: 10px;
 }
 
 .blog-excerpt {
   font-size: 1rem;
   margin-bottom: 15px;
+  color: var(--highlight);
 }
 
 .blog-meta {
@@ -95,7 +103,7 @@ h1 {
 }
 
 .read-more:hover {
-  background-color: var(--secondary-accent);
+  background-color: var(--text-color);
 }
 
 .filters {
