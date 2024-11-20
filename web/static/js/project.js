@@ -7,6 +7,15 @@ const GITHUB_USERNAME = "kh3rld";
 const GITHUB_API_URL = `https://api.github.com/users/${GITHUB_USERNAME}/repos`;
 
 async function fetchGithubProjects() {
+  const cacheKey = `githubProjects_${GITHUB_USERNAME}`;
+  const cachedData = localStorage.getItem(cacheKey);
+
+  // Check if cached data exists and is not expired
+  if (cachedData) {
+    console.log("Using cached data");
+    return JSON.parse(cachedData);
+  }
+
   try {
     const response = await fetch(GITHUB_API_URL);
     if (!response.ok) throw new Error("GitHub API request failed");
@@ -21,7 +30,9 @@ async function fetchGithubProjects() {
           fetch(
             `https://api.github.com/repos/${GITHUB_USERNAME}/${repo.name}/topics`,
             {
-              headers: { Accept: "application/vnd.github.mercy-preview+json" },
+              headers: {
+                Accept: "application/vnd.github.mercy-preview+json",
+              },
             }
           ),
         ]);
@@ -37,6 +48,8 @@ async function fetchGithubProjects() {
       })
     );
 
+    // Cache the fetched data with a timestamp
+    localStorage.setItem(cacheKey, JSON.stringify(detailedRepos));
     return detailedRepos.map((repo) => ({
       name: repo.name,
       description: repo.description || "No description available",
@@ -67,7 +80,6 @@ function createProjectCard(project) {
       "vue",
       "angular",
     ],
-    mobile: ["mobile", "android", "ios", "flutter", "react-native"],
     ai: ["ai", "machine-learning", "deep-learning", "tensorflow", "pytorch"],
     blockchain: ["blockchain", "web3", "crypto", "ethereum", "solidity"],
   };
@@ -143,10 +155,24 @@ async function initializeProjects() {
     return;
   }
 
+  // Sort projects by stars (stargazers_count)
+  projects.sort((a, b) => b.stargazers_count - a.stargazers_count);
+
   projectsGrid.innerHTML = "";
-  projects.forEach((project) => {
+
+  projects.forEach((project, index) => {
     const card = createProjectCard(project);
     projectsGrid.appendChild(card);
+
+    // Animation - smooth curved entrance effect
+    gsap.from(card, {
+      duration: 1,
+      opacity: 0,
+      y: 30,
+      scale: 0.8,
+      ease: "power3.out",
+      delay: index * 0.1, // Delay for staggered animation
+    });
   });
 
   filterButtons.forEach((button) => {
