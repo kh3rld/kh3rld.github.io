@@ -423,6 +423,15 @@
       const GITHUB_API_URL = `https://api.github.com/users/${GITHUB_USERNAME}/repos`;
 
       async function fetchGithubProjects() {
+        const cacheKey = `githubProjects_${GITHUB_USERNAME}`;
+        const cachedData = localStorage.getItem(cacheKey);
+
+        // Check if cached data exists and is not expired
+        if (cachedData) {
+          console.log("Using cached data");
+          return JSON.parse(cachedData);
+        }
+
         try {
           const response = await fetch(GITHUB_API_URL);
           if (!response.ok) throw new Error("GitHub API request failed");
@@ -455,6 +464,8 @@
             })
           );
 
+          // Cache the fetched data with a timestamp
+          localStorage.setItem(cacheKey, JSON.stringify(detailedRepos));
           return detailedRepos.map((repo) => ({
             name: repo.name,
             description: repo.description || "No description available",
@@ -485,7 +496,6 @@
             "vue",
             "angular",
           ],
-          // mobile: ["mobile", "android", "ios", "flutter", "react-native"],
           ai: [
             "ai",
             "machine-learning",
@@ -513,45 +523,45 @@
         card.setAttribute("data-aos", "fade-up");
 
         card.innerHTML = `
-          <h2 class="project-title">${project.name}</h2>
-          <p class="project-description">${project.description}</p>
-          <div class="project-tech">
-            ${project.languages
-              .map((lang) => `<span class="tech-tag">${lang}</span>`)
-              .join("")}
-            ${project.topics
-              .map((topic) => `<span class="tech-tag">${topic}</span>`)
-              .join("")}
-          </div>
-          <div class="project-stats">
-            <div class="stat">
-              <i class="fas fa-star"></i>
-              ${project.stargazers_count} stars
-            </div>
-            <div class="stat">
-              <i class="fas fa-code-branch"></i>
-              ${project.forks_count} forks
-            </div>
-            <div class="stat">
-              <i class="far fa-calendar-alt"></i>
-              ${project.created_at}
-            </div>
-          </div>
-          <div class="project-links">
-            <a href="${project.html_url}" class="project-link" target="_blank">
-              <i class="fab fa-github"></i> View Source
-            </a>
-            ${
-              project.homepage
-                ? `
-              <a href="${project.homepage}" class="project-link" target="_blank">
-                <i class="fas fa-external-link-alt"></i> Live Demo
-              </a>
-            `
-                : ""
-            }
-          </div>
-        `;
+    <h2 class="project-title">${project.name}</h2>
+    <p class="project-description">${project.description}</p>
+    <div class="project-tech">
+      ${project.languages
+        .map((lang) => `<span class="tech-tag">${lang}</span>`)
+        .join("")}
+      ${project.topics
+        .map((topic) => `<span class="tech-tag">${topic}</span>`)
+        .join("")}
+    </div>
+    <div class="project-stats">
+      <div class="stat">
+        <i class="fas fa-star"></i>
+        ${project.stargazers_count} stars
+      </div>
+      <div class="stat">
+        <i class="fas fa-code-branch"></i>
+        ${project.forks_count} forks
+      </div>
+      <div class="stat">
+        <i class="far fa-calendar-alt"></i>
+        ${project.created_at}
+      </div>
+    </div>
+    <div class="project-links">
+      <a href="${project.html_url}" class="project-link" target="_blank">
+        <i class="fab fa-github"></i> View Source
+      </a>
+      ${
+        project.homepage
+          ? `
+        <a href="${project.homepage}" class="project-link" target="_blank">
+          <i class="fas fa-external-link-alt"></i> Live Demo
+        </a>
+      `
+          : ""
+      }
+    </div>
+  `;
 
         return card;
       }
@@ -570,7 +580,11 @@
           return;
         }
 
+        // Sort projects by stars (stargazers_count)
+        projects.sort((a, b) => b.stargazers_count - a.stargazers_count);
+
         projectsGrid.innerHTML = "";
+
         projects.forEach((project, index) => {
           const card = createProjectCard(project);
           projectsGrid.appendChild(card);
