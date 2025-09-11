@@ -1,0 +1,27 @@
+{
+  "name": "linkedin-certifications-api",
+  "version": "1.0.0",
+  "description": "API to fetch LinkedIn certifications for portfolio website",
+  "main": "linkedin-certifications.js",
+  "scripts": {
+    "start": "node linkedin-certifications.js",
+    "dev": "nodemon linkedin-certifications.js"
+  },
+  "dependencies": {
+    "express": "^4.18.2",
+    "cors": "^2.8.5",
+    "puppeteer": "^21.5.2"
+  },
+  "devDependencies": {
+    "nodemon": "^3.0.1"
+  },
+  "keywords": [
+    "linkedin",
+    "certifications",
+    "api",
+    "portfolio",
+    "scraping"
+  ],
+  "author": "Khalid Hussein",
+  "license": "MIT"
+}
