@@ -1,0 +1,188 @@
+/* Theme System - Shared across all pages */
+
+:root {
+  /* Dark Mode (Default) */
+  --bg-primary: #0a0a0a;
+  --bg-secondary: #111111;
+  --bg-tertiary: #1a1a1a;
+  --text-primary: #ffffff;
+  --text-secondary: #a0a0a0;
+  --text-accent: #00d4ff;
+  --accent-primary: #00d4ff;
+  --accent-secondary: #ff6b6b;
+  --accent-tertiary: #4ecdc4;
+  --gradient-primary: linear-gradient(135deg, #00d4ff 0%, #4ecdc4 100%);
+  --gradient-secondary: linear-gradient(135deg, #ff6b6b 0%, #ffa726 100%);
+  --gradient-bg: linear-gradient(135deg, #0a0a0a 0%, #1a1a1a 100%);
+  --shadow-primary: 0 20px 40px rgba(0, 212, 255, 0.1);
+  --shadow-secondary: 0 10px 30px rgba(0, 0, 0, 0.3);
+  --border-radius: 16px;
+  --transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  
+  /* Theme transition */
+  --theme-transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+/* Light Mode */
+[data-theme="light"] {
+  --bg-primary: #ffffff;
+  --bg-secondary: #f8f9fa;
+  --bg-tertiary: #e9ecef;
+  --text-primary: #212529;
+  --text-secondary: #6c757d;
+  --text-accent: #007bff;
+  --accent-primary: #007bff;
+  --accent-secondary: #dc3545;
+  --accent-tertiary: #28a745;
+  --gradient-primary: linear-gradient(135deg, #007bff 0%, #28a745 100%);
+  --gradient-secondary: linear-gradient(135deg, #dc3545 0%, #fd7e14 100%);
+  --gradient-bg: linear-gradient(135deg, #ffffff 0%, #f8f9fa 100%);
+  --shadow-primary: 0 20px 40px rgba(0, 123, 255, 0.1);
+  --shadow-secondary: 0 10px 30px rgba(0, 0, 0, 0.1);
+}
+
+/* Theme Toggle Styles */
+.theme-toggle {
+  position: relative;
+  width: 50px;
+  height: 25px;
+  background: var(--bg-tertiary);
+  border-radius: 25px;
+  border: 2px solid var(--accent-primary);
+  cursor: pointer;
+  transition: var(--theme-transition);
+  margin-left: 20px;
+}
+
+.theme-toggle::before {
+  content: '';
+  position: absolute;
+  top: 2px;
+  left: 2px;
+  width: 17px;
+  height: 17px;
+  background: var(--accent-primary);
+  border-radius: 50%;
+  transition: var(--theme-transition);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.theme-toggle::after {
+  content: '🌙';
+  position: absolute;
+  top: 50%;
+  left: 6px;
+  transform: translateY(-50%);
+  font-size: 12px;
+  transition: var(--theme-transition);
+  opacity: 1;
+}
+
+[data-theme="light"] .theme-toggle::before {
+  transform: translateX(25px);
+  background: var(--accent-primary);
+}
+
+[data-theme="light"] .theme-toggle::after {
+  content: '☀️';
+  left: 6px;
+  opacity: 0;
+}
+
+[data-theme="light"] .theme-toggle::before::after {
+  content: '☀️';
+  position: absolute;
+  top: 50%;
+  right: 6px;
+  transform: translateY(-50%);
+  font-size: 12px;
+  opacity: 1;
+}
+
+.theme-toggle:hover {
+  transform: scale(1.05);
+  box-shadow: 0 5px 15px rgba(0, 212, 255, 0.3);
+}
+
+/* Navigation container with theme toggle */
+.nav-actions {
+  display: flex;
+  align-items: center;
+  gap: 20px;
+}
+
+/* Screen Reader Only */
+.sr-only {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border: 0;
+}
+
+/* Responsive Design for Theme Toggle */
+@media (max-width: 768px) {
+  .nav-actions {
+    gap: 15px;
+  }
+
+  .theme-toggle {
+    margin-left: 0;
+    width: 45px;
+    height: 22px;
+  }
+
+  .theme-toggle::before {
+    width: 15px;
+    height: 15px;
+  }
+
+  [data-theme="light"] .theme-toggle::before {
+    transform: translateX(23px);
+  }
+}
+
+/* Theme transition for all elements */
+* {
+  transition: background-color 0.3s ease, color 0.3s ease, border-color 0.3s ease;
+}
+
+/* Override for specific elements that shouldn't transition */
+.no-transition {
+  transition: none !important;
+}
+
+/* Theme-aware scrollbar */
+::-webkit-scrollbar {
+  width: 8px;
+}
+
+::-webkit-scrollbar-track {
+  background: var(--bg-secondary);
+}
+
+::-webkit-scrollbar-thumb {
+  background: var(--accent-primary);
+  border-radius: 4px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: var(--text-accent);
+}
+
+/* Theme-aware selection */
+::selection {
+  background: var(--accent-primary);
+  color: var(--bg-primary);
+}
+
+[data-theme="light"] ::selection {
+  background: var(--accent-primary);
+  color: var(--bg-primary);
+}
