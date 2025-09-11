@@ -1,0 +1,17 @@
+User-agent: *
+Allow: /
+
+# Sitemap
+Sitemap: https://kh3rld.github.io/sitemap.xml
+
+# Disallow admin areas
+Disallow: /admin/
+Disallow: /api/
+Disallow: /private/
+
+# Allow all other content
+Allow: /web/
+Allow: /static/
+
+# Crawl-delay for respectful crawling
+Crawl-delay: 1
