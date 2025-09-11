@@ -1,8 +1,9 @@
-<html>
+<!DOCTYPE html>
+<html lang="en">
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Contact Us | Khalid Hussein</title>
+    <title>Khalid Hussein | Contact</title>
     <link
       rel="apple-touch-icon"
       sizes="180x180"
@@ -21,15 +22,11 @@
       href="/web/static/icons/favicon-16x16.png"
     />
     <link rel="manifest" href="/web/static/icons/site.webmanifest" />
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=JetBrains+Mono:wght@300;400;500;600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="../static/css/theme.css">
     <style>
-      :root {
-        --bg-color: #17223f;
-        --text-color: #e5dfc7;
-        --accent-color: #6f8890;
-        --secondary-accent: #4b6474;
-        --gradient-start: #758b9320;
-        --gradient-end: #1f3a4b10;
-      }
 
       * {
         margin: 0;
@@ -37,226 +34,759 @@
         box-sizing: border-box;
       }
 
+      html {
+        scroll-behavior: smooth;
+      }
+
       body {
-        font-family: "Roboto", sans-serif;
-        background-color: var(--bg-color);
-        color: var(--text-color);
+        font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+        background: var(--bg-primary);
+        color: var(--text-primary);
         line-height: 1.6;
         overflow-x: hidden;
+        font-size: 16px;
+        position: relative;
       }
 
-      .container {
+      /* Navigation */
+      .nav-container {
+        position: fixed;
+        top: 0;
+        left: 0;
+        right: 0;
+        z-index: 1000;
+        padding: 20px 0;
+        background: rgba(10, 10, 10, 0.95);
+        backdrop-filter: blur(20px);
+        border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+      }
+
+      .nav-content {
         max-width: 1200px;
         margin: 0 auto;
-        padding: 40px 20px;
-        position: relative;
-        z-index: 1;
-      }
-
-      header {
-        text-align: center;
-        margin-bottom: 50px;
-      }
-
-      h1 {
-        font-size: 3.5rem;
-        background: linear-gradient(
-          135deg,
-          var(--accent-color),
-          var(--secondary-accent)
-        );
-        -webkit-background-clip: text;
-        background-clip: text;
-        color: transparent;
-        margin-bottom: 20px;
-        text-transform: uppercase;
-        letter-spacing: 3px;
-        position: relative;
-        animation: smoothEntrance 1s ease-in-out forwards;
-      }
-
-      @keyframes smoothEntrance {
-        0% {
-          transform: translateY(-50px);
-          opacity: 0;
-        }
-        100% {
-          transform: translateY(0);
-          opacity: 1;
-        }
-      }
-
-      .contact-wrapper {
+        padding: 0 20px;
         display: flex;
         justify-content: space-between;
-        flex-wrap: wrap;
+        align-items: center;
       }
 
+      .nav-logo {
+        font-size: 24px;
+        font-weight: 800;
+        background: var(--gradient-primary);
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+        background-clip: text;
+        text-decoration: none;
+      }
+
+      .nav-menu {
+        display: flex;
+        list-style: none;
+        gap: 40px;
+      }
+
+      .nav-item a {
+        color: var(--text-secondary);
+        text-decoration: none;
+        font-weight: 500;
+        font-size: 16px;
+        position: relative;
+        transition: var(--transition);
+      }
+
+      .nav-item a::after {
+        content: '';
+        position: absolute;
+        bottom: -5px;
+        left: 0;
+        width: 0;
+        height: 2px;
+        background: var(--gradient-primary);
+        transition: var(--transition);
+      }
+
+      .nav-item a:hover,
+      .nav-item a.active {
+        color: var(--text-primary);
+      }
+
+      .nav-item a:hover::after,
+      .nav-item a.active::after {
+        width: 100%;
+      }
+
+      .nav-toggle {
+        display: none;
+        flex-direction: column;
+        cursor: pointer;
+        gap: 4px;
+      }
+
+      .nav-toggle span {
+        width: 25px;
+        height: 3px;
+        background: var(--text-primary);
+        transition: var(--transition);
+      }
+
+      /* Main Container */
+      .container {
+        max-width: 1400px;
+        margin: 0 auto;
+        padding: 120px 20px 80px;
+        position: relative;
+      }
+
+      /* Hero Section */
+      .hero-section {
+        text-align: center;
+        margin-bottom: 80px;
+        position: relative;
+      }
+
+      .hero-badge {
+        display: inline-block;
+        background: var(--gradient-primary);
+        color: var(--bg-primary);
+        padding: 8px 20px;
+        border-radius: 50px;
+        font-size: 14px;
+        font-weight: 600;
+        margin-bottom: 20px;
+        opacity: 0;
+        animation: fadeInUp 1s ease 0.2s forwards;
+      }
+
+      .hero-title {
+        font-size: clamp(3rem, 8vw, 5rem);
+        font-weight: 900;
+        line-height: 1.1;
+        margin-bottom: 20px;
+        background: linear-gradient(135deg, #ffffff 0%, #00d4ff 50%, #4ecdc4 100%);
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+        background-clip: text;
+        opacity: 0;
+        animation: fadeInUp 1s ease 0.4s forwards;
+        position: relative;
+        overflow: hidden;
+      }
+
+      .typing-cursor {
+        display: inline-block;
+        width: 3px;
+        height: 1em;
+        background: var(--accent-primary);
+        margin-left: 2px;
+        animation: blink 1s infinite;
+        vertical-align: baseline;
+      }
+
+      @keyframes blink {
+        0%, 50% { opacity: 1; }
+        51%, 100% { opacity: 0; }
+      }
+
+      .hero-subtitle {
+        font-size: clamp(1.2rem, 3vw, 1.8rem);
+        color: var(--text-secondary);
+        margin-bottom: 30px;
+        font-weight: 400;
+        opacity: 0;
+        animation: fadeInUp 1s ease 0.6s forwards;
+      }
+
+      .hero-description {
+        font-size: 18px;
+        color: var(--text-secondary);
+        max-width: 600px;
+        margin: 0 auto 40px;
+        line-height: 1.8;
+        opacity: 0;
+        animation: fadeInUp 1s ease 0.8s forwards;
+      }
+
+      /* Contact Content */
+      .contact-content {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 60px;
+        margin-bottom: 80px;
+        opacity: 0;
+        animation: fadeInUp 1s ease 1s forwards;
+      }
+
+      /* Contact Form */
       .contact-form {
-        flex-basis: 60%;
-        background: linear-gradient(
-          145deg,
-          var(--gradient-start),
-          var(--gradient-end)
-        );
-        backdrop-filter: blur(10px);
-        border: 1px solid rgba(110, 132, 144, 0.1);
+        background: var(--bg-secondary);
         padding: 40px;
-        border-radius: 10px;
-        box-shadow: 0 4px 15px rgba(110, 132, 144, 0.4);
-        animation: fadeIn 1s ease-in-out forwards;
+        border-radius: var(--border-radius);
+        border: 1px solid rgba(255, 255, 255, 0.1);
+        position: relative;
+        overflow: hidden;
       }
 
-      @keyframes fadeIn {
-        0% {
-          transform: translateY(20px);
-          opacity: 0;
-        }
-        100% {
-          transform: translateY(0);
-          opacity: 1;
-        }
+      .contact-form::before {
+        content: '';
+        position: absolute;
+        top: 0;
+        left: 0;
+        right: 0;
+        height: 3px;
+        background: var(--gradient-primary);
+        transform: scaleX(0);
+        transition: var(--transition);
       }
 
-      .contact-info {
-        flex-basis: 35%;
-        animation: fadeIn 1s ease-in-out forwards;
-        animation-delay: 0.2s;
+      .contact-form:hover::before {
+        transform: scaleX(1);
+      }
+
+      .form-title {
+        font-size: 1.8rem;
+        font-weight: 700;
+        margin-bottom: 30px;
+        background: var(--gradient-primary);
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+        background-clip: text;
       }
 
       .form-group {
-        margin-bottom: 20px;
+        margin-bottom: 25px;
+        position: relative;
       }
 
-      label {
+      .form-group label {
         display: block;
-        margin-bottom: 5px;
-        color: var(--accent-color);
-        transition: color 0.3s ease;
+        margin-bottom: 8px;
+        color: var(--text-primary);
+        font-weight: 600;
+        font-size: 14px;
+        text-transform: uppercase;
+        letter-spacing: 1px;
       }
 
-      input,
-      textarea {
+      .form-group input,
+      .form-group textarea {
         width: 100%;
-        padding: 10px;
-        background-color: rgba(255, 255, 255, 0.1);
-        border: none;
-        border-radius: 5px;
-        color: var(--text-color);
+        padding: 16px 20px;
+        border: 2px solid rgba(255, 255, 255, 0.1);
+        border-radius: 12px;
+        background: rgba(255, 255, 255, 0.03);
+        color: var(--text-primary);
         font-size: 16px;
-        transition: border 0.3s ease;
+        transition: var(--transition);
+        font-family: inherit;
+        position: relative;
       }
 
-      textarea {
-        height: 150px;
+      .form-group input:focus,
+      .form-group textarea:focus {
+        outline: none;
+        border-color: var(--accent-primary);
+        background: rgba(0, 212, 255, 0.05);
+        box-shadow: 0 0 0 3px rgba(0, 212, 255, 0.1);
+      }
+
+      .form-group input::placeholder,
+      .form-group textarea::placeholder {
+        color: var(--text-secondary);
+        opacity: 0.7;
+      }
+
+      .form-group textarea {
         resize: vertical;
+        min-height: 120px;
+        font-family: inherit;
       }
 
-      button {
-        background: linear-gradient(
-          135deg,
-          var(--accent-color),
-          var(--secondary-accent)
-        );
-        color: white;
-        text-shadow: 0 1px 2px rgba(0, 0, 0, 0.2);
+      .char-counter {
+        position: absolute;
+        bottom: 8px;
+        right: 12px;
+        font-size: 12px;
+        color: var(--text-secondary);
+        background: var(--bg-secondary);
+        padding: 2px 6px;
+        border-radius: 4px;
+        opacity: 0;
+        transition: var(--transition);
+      }
+
+      .form-group:focus-within .char-counter {
+        opacity: 1;
+      }
+
+      .char-counter.warning {
+        color: var(--accent-secondary);
+      }
+
+      .char-counter.danger {
+        color: #ff4444;
+      }
+
+      .form-group.error input,
+      .form-group.error textarea {
+        border-color: var(--accent-secondary);
+        background: rgba(255, 107, 107, 0.05);
+      }
+
+      .form-group.success input,
+      .form-group.success textarea {
+        border-color: var(--accent-tertiary);
+        background: rgba(78, 205, 196, 0.05);
+      }
+
+      .error-message {
+        color: var(--accent-secondary);
+        font-size: 12px;
+        margin-top: 5px;
+        display: none;
+      }
+
+      .form-group.error .error-message {
+        display: block;
+      }
+
+      .success-message {
+        color: var(--accent-tertiary);
+        font-size: 12px;
+        margin-top: 5px;
+        display: none;
+      }
+
+      .form-group.success .success-message {
+        display: block;
+      }
+
+      .form-group.focused {
+        transform: translateY(-2px);
+      }
+
+      .form-group.focused label {
+        color: var(--accent-primary);
+        transform: scale(1.02);
+      }
+
+      .submit-btn {
+        background: var(--gradient-primary);
+        color: var(--bg-primary);
+        padding: 16px 32px;
         border: none;
-        padding: 12px 24px;
-        font-size: 18px;
-        border-radius: 5px;
+        border-radius: 50px;
+        font-size: 16px;
+        font-weight: 600;
         cursor: pointer;
-        transition: transform 0.3s ease, box-shadow 0.3s ease;
-        animation: smoothEntrance 1s ease-in-out forwards;
-        animation-delay: 0.4s;
+        transition: var(--transition);
+        position: relative;
+        overflow: hidden;
+        width: 100%;
+        text-transform: uppercase;
+        letter-spacing: 1px;
       }
 
-      button:hover {
-        transform: translateY(-3px);
-        box-shadow: 0 4px 15px rgba(110, 132, 144, 0.4);
+      .submit-btn::before {
+        content: '';
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        width: 0;
+        height: 0;
+        background: rgba(255, 255, 255, 0.2);
+        border-radius: 50%;
+        transform: translate(-50%, -50%);
+        transition: all 0.5s ease;
+      }
+
+      .submit-btn:hover::before {
+        width: 300px;
+        height: 300px;
+      }
+
+      .submit-btn:hover {
+        transform: translateY(-2px);
+        box-shadow: var(--shadow-primary);
+      }
+
+      .submit-btn:disabled {
+        opacity: 0.6;
+        cursor: not-allowed;
+        transform: none;
+      }
+
+      .submit-btn.loading {
+        pointer-events: none;
+      }
+
+      .submit-btn.loading::after {
+        content: '';
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        width: 20px;
+        height: 20px;
+        margin: -10px 0 0 -10px;
+        border: 2px solid transparent;
+        border-top: 2px solid var(--bg-primary);
+        border-radius: 50%;
+        animation: spin 1s linear infinite;
+      }
+
+      @keyframes spin {
+        0% { transform: rotate(0deg); }
+        100% { transform: rotate(360deg); }
+      }
+
+      /* Contact Info */
+      .contact-info {
+        background: var(--bg-secondary);
+        padding: 40px;
+        border-radius: var(--border-radius);
+        border: 1px solid rgba(255, 255, 255, 0.1);
+        position: relative;
+        overflow: hidden;
+      }
+
+      .contact-info::before {
+        content: '';
+        position: absolute;
+        top: 0;
+        left: 0;
+        right: 0;
+        height: 3px;
+        background: var(--gradient-primary);
+        transform: scaleX(0);
+        transition: var(--transition);
+      }
+
+      .contact-info:hover::before {
+        transform: scaleX(1);
+      }
+
+      .info-title {
+        font-size: 1.8rem;
+        font-weight: 700;
+        margin-bottom: 30px;
+        background: var(--gradient-primary);
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+        background-clip: text;
       }
 
       .contact-method {
         display: flex;
         align-items: center;
-        margin-bottom: 30px;
-        opacity: 0;
-        animation: fadeIn 1s ease-in-out forwards;
-        animation-delay: 0.6s;
+        margin-bottom: 25px;
+        padding: 20px;
+        background: rgba(255, 255, 255, 0.03);
+        border-radius: 12px;
+        border: 1px solid rgba(255, 255, 255, 0.05);
+        transition: var(--transition);
+        position: relative;
+        overflow: hidden;
+      }
+
+      .contact-method::before {
+        content: '';
+        position: absolute;
+        top: 0;
+        left: -100%;
+        width: 100%;
+        height: 100%;
+        background: linear-gradient(90deg, transparent, rgba(0, 212, 255, 0.1), transparent);
+        transition: left 0.5s;
+      }
+
+      .contact-method:hover::before {
+        left: 100%;
+      }
+
+      .contact-method:hover {
+        transform: translateX(10px);
+        background: rgba(0, 212, 255, 0.05);
+        border-color: var(--accent-primary);
       }
 
       .contact-icon {
-        background: linear-gradient(
-          135deg,
-          var(--accent-color),
-          var(--secondary-accent)
-        );
-        -webkit-background-clip: text;
-        background-clip: text;
-        color: transparent;
-        font-size: 24px;
-        margin-right: 15px;
+        width: 50px;
+        height: 50px;
+        background: var(--gradient-primary);
+        border-radius: 12px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        margin-right: 20px;
+        font-size: 20px;
+        color: var(--bg-primary);
+        transition: var(--transition);
+      }
+
+      .contact-method:hover .contact-icon {
+        transform: scale(1.1);
+      }
+
+      .contact-details h4 {
+        font-size: 16px;
+        font-weight: 600;
+        color: var(--text-primary);
+        margin-bottom: 5px;
+      }
+
+      .contact-details p {
+        font-size: 14px;
+        color: var(--text-secondary);
+        margin: 0;
+      }
+
+      /* Map Section */
+      .map-section {
+        margin-top: 40px;
+        padding-top: 30px;
+        border-top: 1px solid rgba(255, 255, 255, 0.1);
+      }
+
+      .map-container {
+        background: var(--bg-tertiary);
+        border-radius: var(--border-radius);
+        overflow: hidden;
+        border: 1px solid rgba(255, 255, 255, 0.1);
+        height: 300px;
+        position: relative;
+      }
+
+      .map-placeholder {
+        width: 100%;
+        height: 100%;
+        background: linear-gradient(135deg, var(--bg-secondary) 0%, var(--bg-tertiary) 100%);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        flex-direction: column;
+        color: var(--text-secondary);
+        position: relative;
+        overflow: hidden;
+      }
+
+      .map-placeholder::before {
+        content: '';
+        position: absolute;
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><defs><pattern id="grid" width="10" height="10" patternUnits="userSpaceOnUse"><path d="M 10 0 L 0 0 0 10" fill="none" stroke="rgba(255,255,255,0.1)" stroke-width="0.5"/></pattern></defs><rect width="100" height="100" fill="url(%23grid)"/></svg>');
+        opacity: 0.3;
+      }
+
+      .map-icon {
+        font-size: 48px;
+        color: var(--accent-primary);
+        margin-bottom: 15px;
+        z-index: 1;
+      }
+
+      .map-text {
+        font-size: 18px;
+        font-weight: 600;
+        margin-bottom: 8px;
+        z-index: 1;
+      }
+
+      .map-subtext {
+        font-size: 14px;
+        opacity: 0.8;
+        z-index: 1;
+      }
+
+      /* Social Links */
+      .social-section {
+        margin-top: 40px;
+        padding-top: 30px;
+        border-top: 1px solid rgba(255, 255, 255, 0.1);
+      }
+
+      .social-title {
+        font-size: 1.2rem;
+        font-weight: 600;
+        color: var(--text-primary);
+        margin-bottom: 20px;
+        text-align: center;
       }
 
       .social-links {
         display: flex;
-        justify-content: flex-start;
-        margin-top: 30px;
+        justify-content: center;
+        gap: 15px;
+        flex-wrap: wrap;
       }
 
       .social-link {
-        display: inline-block;
-        margin-right: 15px;
-        font-size: 24px;
-        color: var(--text-color);
-        transition: color 0.3s ease;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        width: 50px;
+        height: 50px;
+        background: rgba(255, 255, 255, 0.03);
+        color: var(--accent-primary);
+        border-radius: 12px;
+        text-decoration: none;
+        font-size: 20px;
+        transition: var(--transition);
+        border: 1px solid rgba(255, 255, 255, 0.05);
+        position: relative;
+        overflow: hidden;
+      }
+
+      .social-link::before {
+        content: '';
+        position: absolute;
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        background: var(--gradient-primary);
+        opacity: 0;
+        transition: var(--transition);
+      }
+
+      .social-link:hover::before {
+        opacity: 1;
       }
 
       .social-link:hover {
-        color: var(--accent-color);
-        transform: scale(1.1);
+        transform: translateY(-5px) scale(1.1);
+        box-shadow: var(--shadow-primary);
+        color: var(--bg-primary);
+        z-index: 1;
       }
 
-      @media (max-width: 768px) {
-        .contact-wrapper {
-          flex-direction: column;
-        }
-        .contact-form,
-        .contact-info {
-          flex-basis: 100%;
-        }
-        .contact-info {
-          margin-top: 40px;
-        }
+      .social-link i {
+        position: relative;
+        z-index: 1;
+      }
+
+      /* Floating Particles */
+      .particles {
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        pointer-events: none;
+        z-index: 0;
       }
 
       .particle {
         position: absolute;
+        background: var(--accent-primary);
         border-radius: 50%;
-      }
-
-      .glow {
-        position: absolute;
-        width: 150px;
-        height: 150px;
-        background: radial-gradient(
-          circle,
-          var(--accent-color) 0%,
-          transparent 70%
-        );
-        filter: blur(20px);
-        opacity: 0.15;
-        pointer-events: none;
+        opacity: 0.1;
+        animation: float 6s ease-in-out infinite;
       }
 
       @keyframes float {
-        0% {
-          transform: translateY(0px);
+        0%, 100% {
+          transform: translateY(0px) rotate(0deg);
         }
         50% {
-          transform: translateY(-20px);
+          transform: translateY(-20px) rotate(180deg);
         }
-        100% {
-          transform: translateY(0px);
+      }
+
+      /* Success/Error Messages */
+      .form-message {
+        padding: 15px 20px;
+        border-radius: 12px;
+        margin-bottom: 20px;
+        font-weight: 500;
+        display: none;
+      }
+
+      .form-message.success {
+        background: rgba(78, 205, 196, 0.1);
+        border: 1px solid var(--accent-tertiary);
+        color: var(--accent-tertiary);
+      }
+
+      .form-message.error {
+        background: rgba(255, 107, 107, 0.1);
+        border: 1px solid var(--accent-secondary);
+        color: var(--accent-secondary);
+      }
+
+      /* Animations */
+      @keyframes fadeInUp {
+        from {
+          opacity: 0;
+          transform: translateY(30px);
+        }
+        to {
+          opacity: 1;
+          transform: translateY(0);
+        }
+      }
+
+      /* Scroll Indicator */
+      .scroll-indicator {
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 3px;
+        background: rgba(255, 255, 255, 0.1);
+        z-index: 1001;
+      }
+
+      .scroll-progress {
+        height: 100%;
+        background: var(--gradient-primary);
+        width: 0%;
+        transition: width 0.1s ease;
+      }
+
+      /* Responsive Design */
+      @media (max-width: 768px) {
+        .nav-menu {
+          position: fixed;
+          top: 0;
+          right: -100%;
+          width: 100%;
+          height: 100vh;
+          background: var(--bg-primary);
+          flex-direction: column;
+          justify-content: center;
+          align-items: center;
+          transition: right 0.3s ease;
+        }
+
+        .nav-menu.active {
+          right: 0;
+        }
+
+        .nav-toggle {
+          display: flex;
+        }
+
+        .contact-content {
+          grid-template-columns: 1fr;
+          gap: 40px;
+        }
+
+        .contact-form,
+        .contact-info {
+          padding: 25px;
+        }
+
+        .social-links {
+          gap: 10px;
+        }
+
+        .social-link {
+          width: 45px;
+          height: 45px;
+          font-size: 18px;
         }
       }
     </style>
@@ -266,232 +796,539 @@
     />
   </head>
   <body>
-    <div class="container">
-      <header>
-        <h1>Get in Touch</h1>
-      </header>
-      <div class="contact-wrapper">
-        <div class="contact-form">
-          <form
-            action="https://api.web3forms.com/submit"
-            method="POST"
-            id="contact-form"
-          >
-            <input
-              type="hidden"
-              name="access_key"
-              value="3c590354-fcd0-44c6-84af-c0ebef1dd3c5"
-            />
-            <div class="form-group">
-              <label for="name">Name</label>
-              <input type="text" id="name" name="name" required />
-            </div>
-            <div class="form-group">
-              <label for="email">Email</label>
-              <input type="email" id="email" name="email" required />
-            </div>
-            <div class="form-group">
-              <label for="subject">Subject</label>
-              <input type="text" id="subject" name="subject" required />
-            </div>
-            <div class="form-group">
-              <label for="message">Message</label>
-              <textarea id="message" name="message" required></textarea>
-            </div>
-            <button type="submit">Send Message</button>
-          </form>
-        </div>
-        <div class="contact-info">
-          <div class="contact-method">
-            <i class="fas fa-envelope contact-icon"></i>
-            <p>kherld.hussein@gmail.com</p>
+    <!-- Scroll Indicator -->
+    <div class="scroll-indicator">
+      <div class="scroll-progress" id="scroll-progress"></div>
+    </div>
+
+    <!-- Navigation -->
+    <nav class="nav-container">
+      <div class="nav-content">
+        <a href="../index.html" class="nav-logo">KH</a>
+        <ul class="nav-menu">
+          <li class="nav-item"><a href="./about.page.html">About</a></li>
+          <li class="nav-item"><a href="./projects.page.html">Projects</a></li>
+          <li class="nav-item"><a href="./skills.page.html">Skills</a></li>
+          <li class="nav-item"><a href="./blog.page.html">Blog</a></li>
+          <li class="nav-item"><a href="./contact.page.html" class="active">Contact</a></li>
+        </ul>
+        <div class="nav-actions">
+          <div class="theme-toggle" id="themeToggle" title="Toggle theme">
+            <span class="sr-only">Toggle theme</span>
           </div>
-          <div class="contact-method">
-            <i class="fas fa-phone-alt contact-icon"></i>
-            <p>+254 (792) 28-1871</p>
-          </div>
-          <div class="contact-method">
-            <i class="fas fa-map-marker-alt contact-icon"></i>
-            <p>Kisumu, Kenya</p>
-          </div>
-          <div class="social-links">
-            <a
-              href="https://github.com/kh3rld"
-              class="social-link"
-              target="_blank"
-              ><i class="fab fa-github"></i
-            ></a>
-            <a
-              href="https://linkedin.com/in/kherldhussein"
-              class="social-link"
-              target="_blank"
-              ><i class="fab fa-linkedin"></i
-            ></a>
-            <a
-              href="https://twitter.com/kh3rld"
-              class="social-link"
-              target="_blank"
-              ><i class="fab fa-twitter"></i
-            ></a>
+          <div class="nav-toggle">
+            <span></span>
+            <span></span>
+            <span></span>
           </div>
         </div>
       </div>
-      <div class="glow"></div>
+    </nav>
+
+    <div class="container">
+      <!-- Hero Section -->
+      <section class="hero-section">
+        <div class="hero-badge">Let's Connect</div>
+        <h1 class="hero-title" id="typing-title">Get in Touch<span class="typing-cursor"></span></h1>
+        <p class="hero-subtitle">Ready to Start Your Next Project?</p>
+        <p class="hero-description">
+          I'm always excited to work on new projects and collaborate with amazing people. 
+          Whether you have a question, want to discuss a project, or just want to say hello, 
+          I'd love to hear from you.
+        </p>
+      </section>
+
+      <!-- Contact Content -->
+      <div class="contact-content">
+        <!-- Contact Form -->
+        <div class="contact-form">
+          <h2 class="form-title">Send a Message</h2>
+          <form id="contact-form" action="https://api.web3forms.com/submit" method="POST">
+            <input type="hidden" name="access_key" value="3c590354-fcd0-44c6-84af-c0ebef1dd3c5" />
+            
+            <div class="form-message success" id="success-message">
+              <i class="fas fa-check-circle"></i>
+              Thank you! Your message has been sent successfully. I'll get back to you soon.
+            </div>
+            
+            <div class="form-message error" id="error-message">
+              <i class="fas fa-exclamation-circle"></i>
+              Sorry, there was an error sending your message. Please try again.
+            </div>
+
+            <div class="form-group">
+              <label for="name">Full Name *</label>
+              <input type="text" id="name" name="name" placeholder="Enter your full name" required aria-describedby="name-error name-success" />
+              <div class="error-message" id="name-error">Please enter your full name</div>
+              <div class="success-message" id="name-success">Name looks good!</div>
+            </div>
+
+            <div class="form-group">
+              <label for="email">Email Address *</label>
+              <input type="email" id="email" name="email" placeholder="Enter your email address" required aria-describedby="email-error email-success" />
+              <div class="error-message" id="email-error">Please enter a valid email address</div>
+              <div class="success-message" id="email-success">Email looks good!</div>
+            </div>
+
+            <div class="form-group">
+              <label for="subject">Subject *</label>
+              <input type="text" id="subject" name="subject" placeholder="What's this about?" required aria-describedby="subject-error subject-success" />
+              <div class="error-message" id="subject-error">Please enter a subject</div>
+              <div class="success-message" id="subject-success">Subject looks good!</div>
+            </div>
+
+            <div class="form-group">
+              <label for="message">Message *</label>
+              <textarea id="message" name="message" placeholder="Tell me about your project or question..." required maxlength="1000" aria-describedby="message-error message-success message-counter"></textarea>
+              <div class="char-counter" id="message-counter">0/1000</div>
+              <div class="error-message" id="message-error">Please enter your message</div>
+              <div class="success-message" id="message-success">Message looks good!</div>
+            </div>
+
+            <button type="submit" class="submit-btn">
+              <i class="fas fa-paper-plane"></i>
+              Send Message
+            </button>
+          </form>
+        </div>
+
+        <!-- Contact Info -->
+        <div class="contact-info">
+          <h2 class="info-title">Contact Information</h2>
+          
+          <div class="contact-method" onclick="window.open('mailto:kherld.hussein@gmail.com', '_blank')" style="cursor: pointer;">
+            <div class="contact-icon">
+              <i class="fas fa-envelope"></i>
+            </div>
+            <div class="contact-details">
+              <h4>Email</h4>
+              <p>kherld.hussein@gmail.com</p>
+            </div>
+          </div>
+
+          <div class="contact-method" onclick="window.open('tel:+254792281871', '_self')" style="cursor: pointer;">
+            <div class="contact-icon">
+              <i class="fas fa-phone"></i>
+            </div>
+            <div class="contact-details">
+              <h4>Phone</h4>
+              <p>+254 (792) 28-1871</p>
+            </div>
+          </div>
+
+          <div class="contact-method">
+            <div class="contact-icon">
+              <i class="fas fa-map-marker-alt"></i>
+            </div>
+            <div class="contact-details">
+              <h4>Location</h4>
+              <p>Kisumu, Kenya</p>
+            </div>
+          </div>
+
+          <div class="contact-method">
+            <div class="contact-icon">
+              <i class="fas fa-clock"></i>
+            </div>
+            <div class="contact-details">
+              <h4>Response Time</h4>
+              <p>Usually within 24 hours</p>
+            </div>
+          </div>
+
+          <div class="contact-method" onclick="window.open('https://wa.me/254792281871', '_blank')" style="cursor: pointer;">
+            <div class="contact-icon">
+              <i class="fab fa-whatsapp"></i>
+            </div>
+            <div class="contact-details">
+              <h4>WhatsApp</h4>
+              <p>+254 792 281 871</p>
+            </div>
+          </div>
+
+          <div class="contact-method" onclick="window.open('https://t.me/kherld', '_blank')" style="cursor: pointer;">
+            <div class="contact-icon">
+              <i class="fab fa-telegram"></i>
+            </div>
+            <div class="contact-details">
+              <h4>Telegram</h4>
+              <p>@kh3rld</p>
+            </div>
+          </div>
+
+          <div class="map-section">
+            <h3 class="social-title">My Location</h3>
+            <div class="map-container">
+              <div class="map-placeholder">
+                <i class="fas fa-map-marker-alt map-icon"></i>
+                <div class="map-text">Kisumu, Kenya</div>
+                <div class="map-subtext">East Africa's Silicon Savannah</div>
+              </div>
+            </div>
+          </div>
+
+          <div class="social-section">
+            <h3 class="social-title">Follow Me</h3>
+            <div class="social-links">
+              <a href="https://github.com/kh3rld" class="social-link" target="_blank" rel="noopener" aria-label="GitHub Profile">
+                <i class="fab fa-github"></i>
+              </a>
+              <a href="https://linkedin.com/in/kherldhussein" class="social-link" target="_blank" rel="noopener" aria-label="LinkedIn Profile">
+                <i class="fab fa-linkedin"></i>
+              </a>
+              <a href="https://twitter.com/kh3rld" class="social-link" target="_blank" rel="noopener" aria-label="Twitter Profile">
+                <i class="fab fa-twitter"></i>
+              </a>
+              <a href="https://medium.com/@kherldhussein" class="social-link" target="_blank" rel="noopener" aria-label="Medium Profile">
+                <i class="fab fa-medium"></i>
+              </a>
+              <a href="https://dev.to/kh3rld" class="social-link" target="_blank" rel="noopener" aria-label="Dev.to Profile">
+                <i class="fab fa-dev"></i>
+              </a>
+              <a href="https://wa.me/254792281871" class="social-link" target="_blank" rel="noopener" aria-label="WhatsApp Contact">
+                <i class="fab fa-whatsapp"></i>
+              </a>
+              <a href="https://t.me/kherld" class="social-link" target="_blank" rel="noopener" aria-label="Telegram Contact">
+                <i class="fab fa-telegram"></i>
+              </a>
+            </div>
+          </div>
+        </div>
+      </div>
     </div>
 
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.9.1/gsap.min.js"></script>
-    <script>
-      // Glow effect following cursor
-      const glow = document.createElement("div");
-      glow.className = "glow";
-      document.body.appendChild(glow);
+    <!-- Floating Particles -->
+    <div class="particles" id="particles"></div>
 
-      document.addEventListener("mousemove", (e) => {
-        gsap.to(glow, {
-          duration: 0.6,
-          x: e.clientX - 75,
-          y: e.clientY - 75,
-          ease: "power2.out",
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.9.1/gsap.min.js"></script>
+    <script src="../static/js/theme.js"></script>
+    <script>
+      // Mobile Navigation Toggle
+      const navToggle = document.querySelector('.nav-toggle');
+      const navMenu = document.querySelector('.nav-menu');
+      
+      navToggle.addEventListener('click', () => {
+        navMenu.classList.toggle('active');
+        navToggle.classList.toggle('active');
+      });
+
+      // Close mobile menu when clicking on a link
+      document.querySelectorAll('.nav-item a').forEach(link => {
+        link.addEventListener('click', () => {
+          navMenu.classList.remove('active');
+          navToggle.classList.remove('active');
         });
       });
 
-      // Enhanced floating particles
-      const colors = ["#6f8890", "#4b6474", "#758b93"];
-      const numParticles = 30;
+      // Form Validation
+      const form = document.getElementById('contact-form');
+      const inputs = document.querySelectorAll('input, textarea');
+      const submitBtn = document.querySelector('.submit-btn');
+      const successMessage = document.getElementById('success-message');
+      const errorMessage = document.getElementById('error-message');
 
-      for (let i = 0; i < numParticles; i++) {
-        let particle = document.createElement("div");
-        particle.className = "particle";
-        document.body.appendChild(particle);
-
-        gsap.set(particle, {
-          x: Math.random() * window.innerWidth,
-          y: Math.random() * window.innerHeight,
-          backgroundColor: colors[Math.floor(Math.random() * colors.length)],
-          scale: Math.random() * 0.3 + 0.2,
-          borderRadius: "50%",
+      // Add focus indicators for better accessibility
+      inputs.forEach(input => {
+        input.addEventListener('focus', function() {
+          this.parentElement.classList.add('focused');
         });
-
-        gsap.to(particle, {
-          duration: Math.random() * 3 + 2,
-          x: `+=${Math.random() * 200 - 100}`,
-          y: `+=${Math.random() * 200 - 100}`,
-          rotation: Math.random() * 360,
-          repeat: -1,
-          yoyo: true,
-          ease: "sine.inOut",
+        
+        input.addEventListener('blur', function() {
+          this.parentElement.classList.remove('focused');
         });
+      });
 
-        gsap.to(particle, {
-          duration: Math.random() * 2 + 1,
-          opacity: 0.1,
-          repeat: -1,
-          yoyo: true,
-          ease: "sine.inOut",
-        });
+      // Real-time validation
+      inputs.forEach(input => {
+        input.addEventListener('blur', validateField);
+        input.addEventListener('input', clearValidation);
+      });
+
+      function validateField(e) {
+        const field = e.target;
+        const formGroup = field.closest('.form-group');
+        const value = field.value.trim();
+        
+        // Remove existing validation classes
+        formGroup.classList.remove('error', 'success');
+        
+        if (field.hasAttribute('required') && !value) {
+          formGroup.classList.add('error');
+          return false;
+        }
+        
+        if (field.type === 'email' && value) {
+          const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+          if (!emailRegex.test(value)) {
+            formGroup.classList.add('error');
+            return false;
+          }
+        }
+        
+        if (value) {
+          formGroup.classList.add('success');
+        }
+        
+        return true;
       }
 
-      // Enhanced form animations
-      const form = document.getElementById("contact-form");
-      const inputs = document.querySelectorAll("input, textarea");
+      function clearValidation(e) {
+        const formGroup = e.target.closest('.form-group');
+        formGroup.classList.remove('error', 'success');
+      }
 
-      inputs.forEach((input) => {
-        input.addEventListener("focus", () => {
-          gsap.to(input, {
+      // Form submission
+      form.addEventListener('submit', async function(e) {
+        e.preventDefault();
+        
+        // Validate all fields
+        let isValid = true;
+        inputs.forEach(input => {
+          if (!validateField({ target: input })) {
+            isValid = false;
+          }
+        });
+        
+        if (!isValid) {
+          return;
+        }
+        
+        // Show loading state
+        submitBtn.classList.add('loading');
+        submitBtn.disabled = true;
+        submitBtn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Sending...';
+        
+        try {
+          const formData = new FormData(form);
+          const response = await fetch(form.action, {
+            method: 'POST',
+            body: formData
+          });
+          
+          if (response.ok) {
+            showMessage('success');
+            form.reset();
+            // Clear all validation states
+            document.querySelectorAll('.form-group').forEach(group => {
+              group.classList.remove('error', 'success');
+            });
+          } else {
+            throw new Error('Form submission failed');
+          }
+        } catch (error) {
+          console.error('Error:', error);
+          showMessage('error');
+        } finally {
+          submitBtn.classList.remove('loading');
+          submitBtn.disabled = false;
+          submitBtn.innerHTML = '<i class="fas fa-paper-plane"></i> Send Message';
+        }
+      });
+
+      function showMessage(type) {
+        // Hide both messages first
+        successMessage.style.display = 'none';
+        errorMessage.style.display = 'none';
+        
+        // Show the appropriate message
+        if (type === 'success') {
+          successMessage.style.display = 'block';
+          gsap.from(successMessage, {
+            duration: 0.5,
+            opacity: 0,
+            y: -20,
+            ease: "power2.out"
+          });
+        } else {
+          errorMessage.style.display = 'block';
+          gsap.from(errorMessage, {
+            duration: 0.5,
+            opacity: 0,
+            y: -20,
+            ease: "power2.out"
+          });
+        }
+        
+        // Auto-hide after 5 seconds
+        setTimeout(() => {
+          gsap.to(successMessage, {
+            duration: 0.3,
+            opacity: 0,
+            y: -20,
+            ease: "power2.in",
+            onComplete: () => {
+              successMessage.style.display = 'none';
+            }
+          });
+        }, 5000);
+      }
+
+      // Add hover effects to form elements
+      inputs.forEach(input => {
+        input.addEventListener('focus', function() {
+          gsap.to(this, {
             duration: 0.3,
             scale: 1.02,
-            borderColor: "#6f8890",
-            ease: "power2.out",
+            ease: "power2.out"
           });
         });
-
-        input.addEventListener("blur", () => {
-          gsap.to(input, {
+        
+        input.addEventListener('blur', function() {
+          gsap.to(this, {
             duration: 0.3,
             scale: 1,
-            borderColor: "transparent",
-            ease: "power2.out",
+            ease: "power2.out"
           });
         });
       });
 
-      form.addEventListener("submit", function (e) {
-        gsap
-          .timeline()
-          .to(form, {
-            duration: 0.5,
-            scale: 0.95,
-            opacity: 0,
-            ease: "power2.in",
-          })
-          .call(() => {
-            form.innerHTML =
-              '<h2 style="color: var(--accent-color);">Message Sent!</h2><p>We\'ll get back to you soon.</p>';
-          })
-          .from(form.children, {
-            duration: 0.8,
-            opacity: 0,
-            y: 30,
-            scale: 0.9,
-            stagger: 0.2,
-            ease: "elastic.out(1, 0.8)",
+      // Add hover effects to contact methods
+      document.querySelectorAll('.contact-method').forEach(method => {
+        method.addEventListener('mouseenter', function() {
+          gsap.to(this, {
+            duration: 0.3,
+            scale: 1.02,
+            ease: "power2.out"
           });
+        });
+        
+        method.addEventListener('mouseleave', function() {
+          gsap.to(this, {
+            duration: 0.3,
+            scale: 1,
+            ease: "power2.out"
+          });
+        });
       });
 
-      // Enhanced entrance animations
-      const tl = gsap.timeline();
+      // Add hover effects to social links
+      document.querySelectorAll('.social-link').forEach(link => {
+        link.addEventListener('mouseenter', function() {
+          gsap.to(this, {
+            duration: 0.3,
+            scale: 1.1,
+            ease: "power2.out"
+          });
+        });
+        
+        link.addEventListener('mouseleave', function() {
+          gsap.to(this, {
+            duration: 0.3,
+            scale: 1,
+            ease: "power2.out"
+          });
+        });
+      });
 
-      tl.from("header", {
-        duration: 1.2,
-        y: -100,
-        opacity: 0,
-        ease: "power4.out",
-      })
-        .from(
-          ".contact-form",
-          {
-            duration: 1,
-            x: -50,
-            opacity: 0,
-            rotation: -2,
-            ease: "back.out(1.7)",
-          },
-          "-=0.5"
-        )
-        .from(
-          ".contact-info",
-          {
-            duration: 1,
-            x: 50,
-            opacity: 0,
-            rotation: 2,
-            ease: "back.out(1.7)",
-          },
-          "-=0.8"
-        )
-        .from(
-          ".contact-method",
-          {
-            duration: 0.8,
-            opacity: 0,
-            x: 30,
-            stagger: 0.2,
-            ease: "power3.out",
-          },
-          "-=0.5"
-        )
-        .from(
-          ".social-link",
-          {
-            duration: 0.6,
-            scale: 0,
-            opacity: 0,
-            rotation: -180,
-            stagger: 0.1,
-            ease: "back.out(1.7)",
-          },
-          "-=0.5"
-        );
+      // Create floating particles
+      function createParticles() {
+        const particlesContainer = document.getElementById('particles');
+        const particleCount = 20;
+        
+        for (let i = 0; i < particleCount; i++) {
+          const particle = document.createElement('div');
+          particle.className = 'particle';
+          particlesContainer.appendChild(particle);
+          
+          // Random position and size
+          const size = Math.random() * 4 + 2;
+          const x = Math.random() * window.innerWidth;
+          const y = Math.random() * window.innerHeight;
+          
+          gsap.set(particle, {
+            x: x,
+            y: y,
+            width: size,
+            height: size,
+            opacity: Math.random() * 0.3 + 0.1
+          });
+          
+          // Animate particle
+          gsap.to(particle, {
+            duration: Math.random() * 10 + 5,
+            x: `+=${Math.random() * 200 - 100}`,
+            y: `+=${Math.random() * 200 - 100}`,
+            rotation: Math.random() * 360,
+            repeat: -1,
+            yoyo: true,
+            ease: "sine.inOut"
+          });
+        }
+      }
+
+      // Initialize particles
+      createParticles();
+
+      // Scroll progress indicator
+      function updateScrollProgress() {
+        const scrollTop = window.pageYOffset || document.documentElement.scrollTop;
+        const scrollHeight = document.documentElement.scrollHeight - window.innerHeight;
+        const scrollPercent = (scrollTop / scrollHeight) * 100;
+        document.getElementById('scroll-progress').style.width = scrollPercent + '%';
+      }
+
+      window.addEventListener('scroll', updateScrollProgress);
+
+      // Typing animation for hero title
+      function typeWriter(element, text, speed = 100) {
+        let i = 0;
+        element.innerHTML = '';
+        
+        function type() {
+          if (i < text.length) {
+            element.innerHTML += text.charAt(i);
+            i++;
+            setTimeout(type, speed);
+          } else {
+            // Add cursor after typing is complete
+            element.innerHTML += '<span class="typing-cursor"></span>';
+          }
+        }
+        
+        type();
+      }
+
+      // Start typing animation after page load
+      window.addEventListener('load', () => {
+        const titleElement = document.getElementById('typing-title');
+        const originalText = 'Get in Touch';
+        typeWriter(titleElement, originalText, 150);
+      });
+
+      // Character counter for message textarea
+      const messageTextarea = document.getElementById('message');
+      const messageCounter = document.getElementById('message-counter');
+      
+      messageTextarea.addEventListener('input', function() {
+        const currentLength = this.value.length;
+        const maxLength = parseInt(this.getAttribute('maxlength'));
+        const percentage = (currentLength / maxLength) * 100;
+        
+        messageCounter.textContent = `${currentLength}/${maxLength}`;
+        
+        // Update counter color based on usage
+        messageCounter.classList.remove('warning', 'danger');
+        if (percentage >= 80) {
+          messageCounter.classList.add('warning');
+        }
+        if (percentage >= 95) {
+          messageCounter.classList.add('danger');
+        }
+      });
+
+      // Smooth scrolling for anchor links
+      document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+        anchor.addEventListener('click', function (e) {
+          e.preventDefault();
+          const target = document.querySelector(this.getAttribute('href'));
+          if (target) {
+            target.scrollIntoView({
+              behavior: 'smooth',
+              block: 'start'
+            });
+          }
+        });
+      });
     </script>
   </body>
 </html>
