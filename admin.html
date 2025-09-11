@@ -1,0 +1,775 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>🎛️ Portfolio CMS - Admin Panel</title>
+    <link rel="stylesheet" href="./web/static/css/theme.css">
+    <link rel="stylesheet" href="./web/static/css/accessibility.css">
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+            background: var(--bg-primary);
+            color: var(--text-primary);
+            overflow-x: hidden;
+        }
+
+        .admin-container {
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .admin-header {
+            background: var(--bg-secondary);
+            border-bottom: 1px solid var(--border-color);
+            padding: 1rem 2rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+        }
+
+        .admin-logo {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+        }
+
+        .admin-logo h1 {
+            margin: 0;
+            color: var(--accent-primary);
+            font-size: 1.5rem;
+        }
+
+        .admin-nav {
+            display: flex;
+            gap: 1rem;
+        }
+
+        .admin-nav a {
+            color: var(--text-primary);
+            text-decoration: none;
+            padding: 0.5rem 1rem;
+            border-radius: 6px;
+            transition: all 0.3s ease;
+        }
+
+        .admin-nav a:hover {
+            background: var(--bg-tertiary);
+            color: var(--accent-primary);
+        }
+
+        .admin-main {
+            flex: 1;
+            display: flex;
+        }
+
+        .admin-sidebar {
+            width: 280px;
+            background: var(--bg-tertiary);
+            border-right: 1px solid var(--border-color);
+            padding: 2rem 1rem;
+            overflow-y: auto;
+        }
+
+        .admin-content {
+            flex: 1;
+            padding: 2rem;
+            overflow-y: auto;
+        }
+
+        .admin-card {
+            background: var(--bg-secondary);
+            border: 1px solid var(--border-color);
+            border-radius: 12px;
+            padding: 2rem;
+            margin-bottom: 2rem;
+            transition: all 0.3s ease;
+        }
+
+        .admin-card:hover {
+            border-color: var(--accent-primary);
+            box-shadow: 0 8px 32px rgba(0, 212, 255, 0.1);
+        }
+
+        .admin-card h2 {
+            margin: 0 0 1.5rem 0;
+            color: var(--accent-primary);
+            font-size: 1.5rem;
+        }
+
+        .admin-card h3 {
+            margin: 0 0 1rem 0;
+            color: var(--text-primary);
+            font-size: 1.2rem;
+        }
+
+        .admin-stats {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 1.5rem;
+            margin-bottom: 2rem;
+        }
+
+        .stat-card {
+            background: var(--bg-secondary);
+            border: 1px solid var(--border-color);
+            border-radius: 8px;
+            padding: 1.5rem;
+            text-align: center;
+            transition: all 0.3s ease;
+        }
+
+        .stat-card:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 8px 24px rgba(0, 0, 0, 0.2);
+        }
+
+        .stat-value {
+            font-size: 2.5rem;
+            font-weight: 700;
+            color: var(--accent-primary);
+            margin-bottom: 0.5rem;
+        }
+
+        .stat-label {
+            color: var(--text-secondary);
+            font-size: 0.9rem;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        .admin-form {
+            display: grid;
+            gap: 1.5rem;
+        }
+
+        .form-group {
+            display: flex;
+            flex-direction: column;
+        }
+
+        .form-label {
+            margin-bottom: 0.5rem;
+            font-weight: 600;
+            color: var(--text-primary);
+        }
+
+        .form-input {
+            padding: 0.75rem;
+            border: 1px solid var(--border-color);
+            border-radius: 6px;
+            background: var(--bg-primary);
+            color: var(--text-primary);
+            font-size: 1rem;
+            transition: all 0.3s ease;
+        }
+
+        .form-input:focus {
+            outline: none;
+            border-color: var(--accent-primary);
+            box-shadow: 0 0 0 3px rgba(0, 212, 255, 0.1);
+        }
+
+        .form-textarea {
+            min-height: 120px;
+            resize: vertical;
+            font-family: inherit;
+        }
+
+        .form-select {
+            background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' fill='none' viewBox='0 0 20 20'%3e%3cpath stroke='%236b7280' stroke-linecap='round' stroke-linejoin='round' stroke-width='1.5' d='m6 8 4 4 4-4'/%3e%3c/svg%3e");
+            background-position: right 0.5rem center;
+            background-repeat: no-repeat;
+            background-size: 1.5em 1.5em;
+            padding-right: 2.5rem;
+        }
+
+        .btn {
+            padding: 0.75rem 1.5rem;
+            border: none;
+            border-radius: 6px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            text-decoration: none;
+            display: inline-block;
+            text-align: center;
+        }
+
+        .btn-primary {
+            background: var(--accent-primary);
+            color: var(--bg-primary);
+        }
+
+        .btn-primary:hover {
+            background: var(--accent-secondary);
+            transform: translateY(-2px);
+            box-shadow: 0 8px 24px rgba(0, 212, 255, 0.3);
+        }
+
+        .btn-success {
+            background: #4caf50;
+            color: white;
+        }
+
+        .btn-success:hover {
+            background: #45a049;
+            transform: translateY(-2px);
+        }
+
+        .btn-danger {
+            background: #f44336;
+            color: white;
+        }
+
+        .btn-danger:hover {
+            background: #da190b;
+            transform: translateY(-2px);
+        }
+
+        .btn-secondary {
+            background: var(--bg-tertiary);
+            color: var(--text-primary);
+            border: 1px solid var(--border-color);
+        }
+
+        .btn-secondary:hover {
+            background: var(--bg-secondary);
+            transform: translateY(-2px);
+        }
+
+        .admin-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 1rem;
+        }
+
+        .admin-table th,
+        .admin-table td {
+            padding: 1rem;
+            text-align: left;
+            border-bottom: 1px solid var(--border-color);
+        }
+
+        .admin-table th {
+            background: var(--bg-tertiary);
+            font-weight: 600;
+            color: var(--text-primary);
+        }
+
+        .admin-table tr:hover {
+            background: var(--bg-tertiary);
+        }
+
+        .status-badge {
+            padding: 0.25rem 0.75rem;
+            border-radius: 12px;
+            font-size: 0.8rem;
+            font-weight: 600;
+            text-transform: uppercase;
+        }
+
+        .status-published {
+            background: #e8f5e8;
+            color: #2e7d32;
+        }
+
+        .status-draft {
+            background: #fff3e0;
+            color: #f57c00;
+        }
+
+        .status-archived {
+            background: #f3e5f5;
+            color: #7b1fa2;
+        }
+
+        .admin-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+        }
+
+        .quick-action {
+            background: var(--bg-secondary);
+            border: 1px solid var(--border-color);
+            border-radius: 8px;
+            padding: 1.5rem;
+            text-align: center;
+            transition: all 0.3s ease;
+            cursor: pointer;
+        }
+
+        .quick-action:hover {
+            border-color: var(--accent-primary);
+            transform: translateY(-4px);
+            box-shadow: 0 8px 24px rgba(0, 212, 255, 0.1);
+        }
+
+        .quick-action-icon {
+            font-size: 2rem;
+            margin-bottom: 1rem;
+        }
+
+        .quick-action-title {
+            font-weight: 600;
+            margin-bottom: 0.5rem;
+            color: var(--text-primary);
+        }
+
+        .quick-action-desc {
+            color: var(--text-secondary);
+            font-size: 0.9rem;
+        }
+
+        .admin-alert {
+            padding: 1rem 1.5rem;
+            border-radius: 8px;
+            margin-bottom: 1rem;
+            border-left: 4px solid;
+        }
+
+        .alert-info {
+            background: #e3f2fd;
+            color: #1976d2;
+            border-left-color: #1976d2;
+        }
+
+        .alert-success {
+            background: #e8f5e8;
+            color: #2e7d32;
+            border-left-color: #2e7d32;
+        }
+
+        .alert-warning {
+            background: #fff3e0;
+            color: #f57c00;
+            border-left-color: #f57c00;
+        }
+
+        .alert-error {
+            background: #ffebee;
+            color: #c62828;
+            border-left-color: #c62828;
+        }
+
+        .admin-sidebar-nav {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+        }
+
+        .admin-sidebar-nav li {
+            margin-bottom: 0.5rem;
+        }
+
+        .admin-sidebar-nav a {
+            display: block;
+            padding: 0.75rem 1rem;
+            color: var(--text-primary);
+            text-decoration: none;
+            border-radius: 6px;
+            transition: all 0.3s ease;
+        }
+
+        .admin-sidebar-nav a:hover,
+        .admin-sidebar-nav a.active {
+            background: var(--accent-primary);
+            color: var(--bg-primary);
+        }
+
+        .admin-sidebar-nav a i {
+            margin-right: 0.5rem;
+            width: 20px;
+        }
+
+        .admin-footer {
+            background: var(--bg-secondary);
+            border-top: 1px solid var(--border-color);
+            padding: 1rem 2rem;
+            text-align: center;
+            color: var(--text-secondary);
+        }
+
+        .admin-loading {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 200px;
+            font-size: 1.2rem;
+            color: var(--text-secondary);
+        }
+
+        .admin-spinner {
+            width: 40px;
+            height: 40px;
+            border: 4px solid var(--border-color);
+            border-top: 4px solid var(--accent-primary);
+            border-radius: 50%;
+            animation: spin 1s linear infinite;
+            margin-right: 1rem;
+        }
+
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+
+        .admin-hidden {
+            display: none !important;
+        }
+
+        @media (max-width: 768px) {
+            .admin-main {
+                flex-direction: column;
+            }
+
+            .admin-sidebar {
+                width: 100%;
+                order: 2;
+            }
+
+            .admin-content {
+                order: 1;
+            }
+
+            .admin-stats {
+                grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+            }
+
+            .admin-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="admin-container">
+        <!-- Header -->
+        <header class="admin-header">
+            <div class="admin-logo">
+                <h1>🎛️ Portfolio CMS</h1>
+            </div>
+            <nav class="admin-nav">
+                <a href="#dashboard">Dashboard</a>
+                <a href="#content">Content</a>
+                <a href="#media">Media</a>
+                <a href="#analytics">Analytics</a>
+                <a href="#settings">Settings</a>
+                <a href="#" onclick="cms.logout()">Logout</a>
+            </nav>
+        </header>
+
+        <!-- Main Content -->
+        <main class="admin-main">
+            <!-- Sidebar -->
+            <aside class="admin-sidebar">
+                <ul class="admin-sidebar-nav">
+                    <li><a href="#dashboard" class="active"><i>📊</i> Dashboard</a></li>
+                    <li><a href="#content"><i>📝</i> Content Management</a></li>
+                    <li><a href="#media"><i>🖼️</i> Media Library</a></li>
+                    <li><a href="#analytics"><i>📈</i> Analytics</a></li>
+                    <li><a href="#users"><i>👥</i> User Management</a></li>
+                    <li><a href="#seo"><i>🔍</i> SEO Tools</a></li>
+                    <li><a href="#performance"><i>⚡</i> Performance</a></li>
+                    <li><a href="#security"><i>🔒</i> Security</a></li>
+                    <li><a href="#backup"><i>💾</i> Backup & Restore</a></li>
+                    <li><a href="#settings"><i>⚙️</i> Settings</a></li>
+                </ul>
+            </aside>
+
+            <!-- Content Area -->
+            <div class="admin-content">
+                <!-- Dashboard Section -->
+                <section id="dashboard-section">
+                    <div class="admin-alert alert-info">
+                        <strong>Welcome to Portfolio CMS!</strong> This is your central hub for managing all aspects of your portfolio website.
+                    </div>
+
+                    <!-- Stats Cards -->
+                    <div class="admin-stats">
+                        <div class="stat-card">
+                            <div class="stat-value">12,345</div>
+                            <div class="stat-label">Page Views</div>
+                        </div>
+                        <div class="stat-card">
+                            <div class="stat-value">3,456</div>
+                            <div class="stat-label">Unique Visitors</div>
+                        </div>
+                        <div class="stat-card">
+                            <div class="stat-value">2.3m</div>
+                            <div class="stat-label">Avg. Session</div>
+                        </div>
+                        <div class="stat-card">
+                            <div class="stat-value">95</div>
+                            <div class="stat-label">Lighthouse Score</div>
+                        </div>
+                    </div>
+
+                    <!-- Quick Actions -->
+                    <div class="admin-card">
+                        <h2>🚀 Quick Actions</h2>
+                        <div class="admin-grid">
+                            <div class="quick-action" onclick="cms.editContent('homepage')">
+                                <div class="quick-action-icon">🏠</div>
+                                <div class="quick-action-title">Edit Homepage</div>
+                                <div class="quick-action-desc">Update hero section, about preview, and call-to-action</div>
+                            </div>
+                            <div class="quick-action" onclick="cms.editContent('about')">
+                                <div class="quick-action-icon">👤</div>
+                                <div class="quick-action-title">Edit About Page</div>
+                                <div class="quick-action-desc">Update personal information, skills, and experience</div>
+                            </div>
+                            <div class="quick-action" onclick="cms.editContent('projects')">
+                                <div class="quick-action-icon">💼</div>
+                                <div class="quick-action-title">Manage Projects</div>
+                                <div class="quick-action-desc">Add, edit, or remove project showcases</div>
+                            </div>
+                            <div class="quick-action" onclick="cms.editContent('blog')">
+                                <div class="quick-action-icon">📝</div>
+                                <div class="quick-action-title">Write Blog Post</div>
+                                <div class="quick-action-desc">Create and publish new blog content</div>
+                            </div>
+                            <div class="quick-action" onclick="cms.editContent('contact')">
+                                <div class="quick-action-icon">📞</div>
+                                <div class="quick-action-title">Update Contact</div>
+                                <div class="quick-action-desc">Modify contact information and form settings</div>
+                            </div>
+                            <div class="quick-action" onclick="cms.uploadMedia()">
+                                <div class="quick-action-icon">🖼️</div>
+                                <div class="quick-action-title">Upload Media</div>
+                                <div class="quick-action-desc">Add images, videos, or documents</div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Recent Activity -->
+                    <div class="admin-card">
+                        <h2>📋 Recent Activity</h2>
+                        <table class="admin-table">
+                            <thead>
+                                <tr>
+                                    <th>Action</th>
+                                    <th>Content</th>
+                                    <th>Status</th>
+                                    <th>Date</th>
+                                    <th>Actions</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>📝 Updated</td>
+                                    <td>About Page</td>
+                                    <td><span class="status-badge status-published">Published</span></td>
+                                    <td>2 hours ago</td>
+                                    <td>
+                                        <button class="btn btn-secondary" style="padding: 0.25rem 0.5rem; font-size: 0.8rem;">View</button>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>➕ Created</td>
+                                    <td>New Blog Post</td>
+                                    <td><span class="status-badge status-draft">Draft</span></td>
+                                    <td>1 day ago</td>
+                                    <td>
+                                        <button class="btn btn-secondary" style="padding: 0.25rem 0.5rem; font-size: 0.8rem;">Edit</button>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>🖼️ Uploaded</td>
+                                    <td>Project Screenshot</td>
+                                    <td><span class="status-badge status-published">Published</span></td>
+                                    <td>2 days ago</td>
+                                    <td>
+                                        <button class="btn btn-secondary" style="padding: 0.25rem 0.5rem; font-size: 0.8rem;">View</button>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </section>
+
+                <!-- Content Management Section -->
+                <section id="content-section" class="admin-hidden">
+                    <div class="admin-card">
+                        <h2>📝 Content Management</h2>
+                        <p>Manage all your website content from one central location.</p>
+                        
+                        <div class="admin-grid">
+                            <div class="quick-action" onclick="cms.editContent('homepage')">
+                                <div class="quick-action-icon">🏠</div>
+                                <div class="quick-action-title">Homepage</div>
+                                <div class="quick-action-desc">Hero section, about preview, and main content</div>
+                            </div>
+                            <div class="quick-action" onclick="cms.editContent('about')">
+                                <div class="quick-action-icon">👤</div>
+                                <div class="quick-action-title">About Page</div>
+                                <div class="quick-action-desc">Personal information, skills, and experience</div>
+                            </div>
+                            <div class="quick-action" onclick="cms.editContent('projects')">
+                                <div class="quick-action-icon">💼</div>
+                                <div class="quick-action-title">Projects</div>
+                                <div class="quick-action-desc">Portfolio projects and showcases</div>
+                            </div>
+                            <div class="quick-action" onclick="cms.editContent('blog')">
+                                <div class="quick-action-icon">📝</div>
+                                <div class="quick-action-title">Blog</div>
+                                <div class="quick-action-desc">Blog posts and articles</div>
+                            </div>
+                            <div class="quick-action" onclick="cms.editContent('contact')">
+                                <div class="quick-action-icon">📞</div>
+                                <div class="quick-action-title">Contact</div>
+                                <div class="quick-action-desc">Contact information and form</div>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- Media Library Section -->
+                <section id="media-section" class="admin-hidden">
+                    <div class="admin-card">
+                        <h2>🖼️ Media Library</h2>
+                        <p>Upload and manage your media files.</p>
+                        
+                        <div class="form-group">
+                            <label class="form-label">Upload Files</label>
+                            <input type="file" class="form-input" id="media-upload" multiple accept="image/*,video/*,audio/*">
+                        </div>
+                        
+                        <div class="admin-grid" id="media-grid">
+                            <!-- Media items will be loaded here -->
+                        </div>
+                    </div>
+                </section>
+
+                <!-- Analytics Section -->
+                <section id="analytics-section" class="admin-hidden">
+                    <div class="admin-card">
+                        <h2>📊 Analytics Dashboard</h2>
+                        <p>Track your website's performance and user engagement.</p>
+                        
+                        <div class="admin-stats">
+                            <div class="stat-card">
+                                <div class="stat-value">12,345</div>
+                                <div class="stat-label">Total Page Views</div>
+                            </div>
+                            <div class="stat-card">
+                                <div class="stat-value">3,456</div>
+                                <div class="stat-label">Unique Visitors</div>
+                            </div>
+                            <div class="stat-card">
+                                <div class="stat-value">2.3m</div>
+                                <div class="stat-label">Avg. Session Duration</div>
+                            </div>
+                            <div class="stat-card">
+                                <div class="stat-value">68%</div>
+                                <div class="stat-label">Bounce Rate</div>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- Settings Section -->
+                <section id="settings-section" class="admin-hidden">
+                    <div class="admin-card">
+                        <h2>⚙️ Settings</h2>
+                        <form class="admin-form">
+                            <div class="form-group">
+                                <label class="form-label">Site Title</label>
+                                <input type="text" class="form-input" value="Khalid Hussein - Portfolio">
+                            </div>
+                            
+                            <div class="form-group">
+                                <label class="form-label">Site Description</label>
+                                <textarea class="form-input form-textarea" placeholder="Enter site description...">Senior Software Engineer specializing in full-stack development, AI integration, and scalable architecture design.</textarea>
+                            </div>
+                            
+                            <div class="form-group">
+                                <label class="form-label">Default Theme</label>
+                                <select class="form-input form-select">
+                                    <option value="dark">Dark</option>
+                                    <option value="light">Light</option>
+                                    <option value="auto">Auto</option>
+                                </select>
+                            </div>
+                            
+                            <div class="form-group">
+                                <label class="form-label">Analytics ID</label>
+                                <input type="text" class="form-input" placeholder="GA_MEASUREMENT_ID">
+                            </div>
+                            
+                            <button type="submit" class="btn btn-primary">💾 Save Settings</button>
+                        </form>
+                    </div>
+                </section>
+            </div>
+        </main>
+
+        <!-- Footer -->
+        <footer class="admin-footer">
+            <p>&copy; 2024 Portfolio CMS. All rights reserved.</p>
+        </footer>
+    </div>
+
+    <!-- Scripts -->
+    <script src="./web/static/js/theme.js"></script>
+    <script src="./web/static/js/cms.js"></script>
+    <script>
+        // Admin panel functionality
+        document.addEventListener('DOMContentLoaded', () => {
+            // Navigation
+            const navLinks = document.querySelectorAll('.admin-nav a, .admin-sidebar-nav a');
+            const sections = document.querySelectorAll('section[id$="-section"]');
+            
+            navLinks.forEach(link => {
+                link.addEventListener('click', (e) => {
+                    e.preventDefault();
+                    const target = link.getAttribute('href').substring(1);
+                    
+                    // Update active states
+                    navLinks.forEach(l => l.classList.remove('active'));
+                    link.classList.add('active');
+                    
+                    // Show/hide sections
+                    sections.forEach(section => {
+                        if (section.id === target + '-section') {
+                            section.classList.remove('admin-hidden');
+                        } else {
+                            section.classList.add('admin-hidden');
+                        }
+                    });
+                });
+            });
+
+            // Load media items
+            loadMediaItems();
+        });
+
+        function loadMediaItems() {
+            const mediaGrid = document.getElementById('media-grid');
+            if (!mediaGrid) return;
+
+            const mediaItems = JSON.parse(localStorage.getItem('cms_media_items') || '[]');
+            
+            if (mediaItems.length === 0) {
+                mediaGrid.innerHTML = '<p>No media items found. Upload some files to get started!</p>';
+                return;
+            }
+
+            mediaGrid.innerHTML = mediaItems.map(item => `
+                <div class="quick-action">
+                    <div class="quick-action-icon">🖼️</div>
+                    <div class="quick-action-title">${item.name}</div>
+                    <div class="quick-action-desc">${item.size} • ${new Date(item.uploadedAt).toLocaleDateString()}</div>
+                </div>
+            `).join('');
+        }
+    </script>
+</body>
+</html>
