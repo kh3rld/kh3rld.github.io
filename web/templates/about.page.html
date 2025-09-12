@@ -344,6 +344,34 @@
         font-family: 'JetBrains Mono', monospace;
       }
 
+      .window-status {
+        display: flex;
+        align-items: center;
+        gap: 8px;
+        margin-left: auto;
+        font-size: 12px;
+        color: var(--text-secondary);
+        font-family: 'JetBrains Mono', monospace;
+      }
+
+      .status-indicator {
+        width: 8px;
+        height: 8px;
+        border-radius: 50%;
+        background: #ff6b6b;
+        animation: pulse 2s ease-in-out infinite;
+      }
+
+      .status-indicator.compiling {
+        background: #ffa726;
+        animation: pulse 1s ease-in-out infinite;
+      }
+
+      .status-indicator.success {
+        background: #4caf50;
+        animation: none;
+      }
+
       .code-content {
         padding: 24px;
         font-family: 'JetBrains Mono', monospace;
@@ -375,6 +403,54 @@
       .code-comment { color: #6272a4; }
       .code-function { color: #50fa7b; }
       .code-variable { color: #8be9fd; }
+      .code-module { color: #4ec9b0; font-weight: 500; }
+      .code-attribute { color: #c586c0; font-weight: 500; }
+      .code-struct { color: #4ec9b0; font-weight: 600; }
+      .code-type { color: #4ec9b0; font-weight: 500; }
+      .code-number { color: #b5cea8; font-weight: 500; }
+
+      .code-line {
+        position: relative;
+        opacity: 0;
+        transform: translateX(-20px);
+        animation: slideInCode 0.6s ease-out forwards;
+      }
+
+      .code-line[data-line="1"] { animation-delay: 0.1s; }
+      .code-line[data-line="2"] { animation-delay: 0.2s; }
+      .code-line[data-line="3"] { animation-delay: 0.3s; }
+      .code-line[data-line="4"] { animation-delay: 0.4s; }
+      .code-line[data-line="5"] { animation-delay: 0.5s; }
+      .code-line[data-line="6"] { animation-delay: 0.6s; }
+      .code-line[data-line="7"] { animation-delay: 0.7s; }
+      .code-line[data-line="8"] { animation-delay: 0.8s; }
+      .code-line[data-line="9"] { animation-delay: 0.9s; }
+      .code-line[data-line="10"] { animation-delay: 1.0s; }
+      .code-line[data-line="11"] { animation-delay: 1.1s; }
+      .code-line[data-line="12"] { animation-delay: 1.2s; }
+      .code-line[data-line="13"] { animation-delay: 1.3s; }
+      .code-line[data-line="14"] { animation-delay: 1.4s; }
+      .code-line[data-line="15"] { animation-delay: 1.5s; }
+      .code-line[data-line="16"] { animation-delay: 1.6s; }
+      .code-line[data-line="17"] { animation-delay: 1.7s; }
+      .code-line[data-line="18"] { animation-delay: 1.8s; }
+      .code-line[data-line="19"] { animation-delay: 1.9s; }
+      .code-line[data-line="20"] { animation-delay: 2.0s; }
+      .code-line[data-line="21"] { animation-delay: 2.1s; }
+      .code-line[data-line="22"] { animation-delay: 2.2s; }
+      .code-line[data-line="23"] { animation-delay: 2.3s; }
+      .code-line[data-line="24"] { animation-delay: 2.4s; }
+
+      @keyframes slideInCode {
+        0% {
+          opacity: 0;
+          transform: translateX(-20px);
+        }
+        100% {
+          opacity: 1;
+          transform: translateX(0);
+        }
+      }
 
       /* Interactive Skills */
       .skills-section {
@@ -896,7 +972,7 @@
     <!-- Navigation -->
     <nav class="nav-container">
       <div class="nav-content">
-        <a href="../index.html" class="nav-logo">KH</a>
+        <a href="/" class="nav-logo">KH</a>
         <ul class="nav-menu">
           <li class="nav-item"><a href="./about.page.html" class="active">About</a></li>
           <li class="nav-item"><a href="./projects.page.html">Projects</a></li>
@@ -964,35 +1040,37 @@
                 <div class="window-dot dot-red"></div>
                 <div class="window-dot dot-yellow"></div>
                 <div class="window-dot dot-green"></div>
-                <div class="window-title">about-khalid.go</div>
+                <div class="window-title">about_khalid.rs</div>
+                <div class="window-status">
+                  <span class="status-indicator"></span>
+                  <span class="status-text">Compiling...</span>
+                </div>
               </div>
               <div class="code-content">
-                <div class="code-line"><span class="code-keyword">package</span> <span class="code-variable">main</span></div>
-                <div class="code-line"></div>
-                <div class="code-line"><span class="code-keyword">import</span> <span class="code-string">"fmt"</span></div>
-                <div class="code-line"></div>
-                <div class="code-line"><span class="code-keyword">type</span> <span class="code-variable">Khalid</span> <span class="code-keyword">struct</span> {</div>
-                <div class="code-line">    <span class="code-variable">Name</span>    <span class="code-keyword">string</span>   <span class="code-comment">`json:"name"`</span></div>
-                <div class="code-line">    <span class="code-variable">Role</span>    <span class="code-keyword">string</span>   <span class="code-comment">`json:"role"`</span></div>
-                <div class="code-line">    <span class="code-variable">Passion</span> <span class="code-keyword">string</span>   <span class="code-comment">`json:"passion"`</span></div>
-                <div class="code-line">    <span class="code-variable">Skills</span>  []<span class="code-keyword">string</span> <span class="code-comment">`json:"skills"`</span></div>
-                <div class="code-line">}</div>
-                <div class="code-line"></div>
-                <div class="code-line"><span class="code-keyword">func</span> (<span class="code-variable">k</span> *<span class="code-variable">Khalid</span>) <span class="code-function">CreateMagic</span>() <span class="code-keyword">string</span> {</div>
-                <div class="code-line">    <span class="code-comment">// Always learning, always growing</span></div>
-                <div class="code-line">    <span class="code-keyword">return</span> <span class="code-string">"Innovation"</span></div>
-                <div class="code-line">}</div>
-                <div class="code-line"></div>
-                <div class="code-line"><span class="code-keyword">func</span> <span class="code-function">main</span>() {</div>
-                <div class="code-line">    <span class="code-variable">khalid</span> := <span class="code-variable">Khalid</span>{</div>
-                <div class="code-line">        <span class="code-variable">Name</span>:    <span class="code-string">"Khalid Hussein"</span>,</div>
-                <div class="code-line">        <span class="code-variable">Role</span>:    <span class="code-string">"Senior Software Engineer"</span>,</div>
-                <div class="code-line">        <span class="code-variable">Passion</span>: <span class="code-string">"Building amazing software"</span>,</div>
-                <div class="code-line">        <span class="code-variable">Skills</span>:  []<span class="code-keyword">string</span>{<span class="code-string">"Go"</span>, <span class="code-string">"Rust"</span>, <span class="code-string">"React"</span>},</div>
-                <div class="code-line">    }</div>
-                <div class="code-line">    </div>
-                <div class="code-line">    <span class="code-function">fmt</span>.<span class="code-function">Println</span>(<span class="code-variable">khalid</span>.<span class="code-function">CreateMagic</span>())</div>
-                <div class="code-line">}</div>
+                <div class="code-line" data-line="1"><span class="code-keyword">struct</span> <span class="code-struct">Khalid</span> {</div>
+                <div class="code-line" data-line="2">    <span class="code-variable">name</span>: <span class="code-type">&'static str</span>,</div>
+                <div class="code-line" data-line="3">    <span class="code-variable">role</span>: <span class="code-type">&'static str</span>,</div>
+                <div class="code-line" data-line="4">    <span class="code-variable">skills</span>: <span class="code-type">Vec&lt;&'static str&gt;</span>,</div>
+                <div class="code-line" data-line="5">}</div>
+                <div class="code-line" data-line="6"></div>
+                <div class="code-line" data-line="7"><span class="code-keyword">impl</span> <span class="code-struct">Khalid</span> {</div>
+                <div class="code-line" data-line="8">    <span class="code-keyword">fn</span> <span class="code-function">create_magic</span>(&<span class="code-keyword">self</span>) -&gt; <span class="code-type">String</span> {</div>
+                <div class="code-line" data-line="9">        <span class="code-comment">// Zero-cost abstractions</span></div>
+                <div class="code-line" data-line="10">        <span class="code-string">"Innovation"</span>.<span class="code-function">to_string</span>()</div>
+                <div class="code-line" data-line="11">    }</div>
+                <div class="code-line" data-line="12">}</div>
+                <div class="code-line" data-line="13"></div>
+                <div class="code-line" data-line="14"><span class="code-keyword">fn</span> <span class="code-function">main</span>() {</div>
+                <div class="code-line" data-line="15">    <span class="code-keyword">let</span> <span class="code-variable">khalid</span> = <span class="code-struct">Khalid</span> {</div>
+                <div class="code-line" data-line="16">        <span class="code-variable">name</span>: <span class="code-string">"Khalid Hussein"</span>,</div>
+                <div class="code-line" data-line="17">        <span class="code-variable">role</span>: <span class="code-string">"Senior Software Engineer"</span>,</div>
+                <div class="code-line" data-line="18">        <span class="code-variable">skills</span>: <span class="code-type">vec!</span>[<span class="code-string">"Rust"</span>, <span class="code-string">"Go"</span>, <span class="code-string">"Dart"</span>],</div>
+                <div class="code-line" data-line="19">    };</div>
+                <div class="code-line" data-line="20"></div>
+                <div class="code-line" data-line="21">    <span class="code-function">println!</span>(<span class="code-string">"{}"</span>, <span class="code-variable">khalid</span>.<span class="code-function">create_magic</span>());</div>
+                <div class="code-line" data-line="22">}</div>
+                <div class="code-line" data-line="23"></div>
+                <div class="code-line" data-line="24"><span class="code-comment">// Output: Innovation</span></div>
               </div>
             </div>
           </div>
@@ -1114,7 +1192,7 @@
         </div>
 
         <div class="footer-bottom">
-          <p>&copy; 2024 Khalid Hussein. All rights reserved. | Built with <i class="fas fa-heart" style="color: #ff6b6b;"></i> and lots of ☕</p>
+          <p>&copy; 2024 Khalid Hussein. All rights reserved.</p>
         </div>
       </div>
     </footer>
@@ -1137,6 +1215,25 @@
           navMenu.classList.remove('active');
           navToggle.classList.remove('active');
         });
+      });
+
+      // Rust code compilation animation
+      document.addEventListener('DOMContentLoaded', () => {
+        const statusIndicator = document.querySelector('.status-indicator');
+        const statusText = document.querySelector('.status-text');
+        
+        if (statusIndicator && statusText) {
+          // Start with compiling state
+          statusIndicator.classList.add('compiling');
+          statusText.textContent = 'Compiling...';
+          
+          // Simulate compilation process
+          setTimeout(() => {
+            statusIndicator.classList.remove('compiling');
+            statusIndicator.classList.add('success');
+            statusText.textContent = 'Compiled successfully';
+          }, 2500);
+        }
       });
 
       // Interactive Skills

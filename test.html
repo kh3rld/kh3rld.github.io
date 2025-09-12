@@ -1,0 +1,321 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>🧪 Testing Suite - Portfolio</title>
+    <link rel="stylesheet" href="./web/static/css/theme.css">
+    <link rel="stylesheet" href="./web/static/css/accessibility.css">
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+            background: var(--bg-primary);
+            color: var(--text-primary);
+        }
+        
+        .test-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 2rem;
+        }
+        
+        .test-header {
+            text-align: center;
+            margin-bottom: 3rem;
+        }
+        
+        .test-header h1 {
+            color: var(--accent-primary);
+            font-size: 2.5rem;
+            margin-bottom: 1rem;
+        }
+        
+        .test-header p {
+            color: var(--text-secondary);
+            font-size: 1.2rem;
+        }
+        
+        .test-controls {
+            display: flex;
+            justify-content: center;
+            gap: 1rem;
+            margin-bottom: 2rem;
+        }
+        
+        .test-btn {
+            padding: 1rem 2rem;
+            border: none;
+            border-radius: 8px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            font-size: 1rem;
+        }
+        
+        .test-btn-primary {
+            background: var(--accent-primary);
+            color: var(--bg-primary);
+        }
+        
+        .test-btn-primary:hover {
+            background: var(--accent-secondary);
+            transform: translateY(-2px);
+        }
+        
+        .test-btn-secondary {
+            background: var(--bg-secondary);
+            color: var(--text-primary);
+            border: 1px solid var(--border-color);
+        }
+        
+        .test-btn-secondary:hover {
+            background: var(--bg-tertiary);
+            transform: translateY(-2px);
+        }
+        
+        .test-results {
+            background: var(--bg-secondary);
+            border: 1px solid var(--border-color);
+            border-radius: 12px;
+            padding: 2rem;
+            margin-bottom: 2rem;
+        }
+        
+        .test-stats {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 1rem;
+            margin-bottom: 2rem;
+        }
+        
+        .stat-card {
+            background: var(--bg-tertiary);
+            border: 1px solid var(--border-color);
+            border-radius: 8px;
+            padding: 1.5rem;
+            text-align: center;
+        }
+        
+        .stat-value {
+            font-size: 2rem;
+            font-weight: 700;
+            color: var(--accent-primary);
+            margin-bottom: 0.5rem;
+        }
+        
+        .stat-label {
+            color: var(--text-secondary);
+            font-size: 0.9rem;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+        
+        .test-list {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+        }
+        
+        .test-item {
+            background: var(--bg-tertiary);
+            border: 1px solid var(--border-color);
+            border-radius: 8px;
+            padding: 1rem;
+            margin-bottom: 1rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        
+        .test-item.passed {
+            border-left: 4px solid #4caf50;
+        }
+        
+        .test-item.failed {
+            border-left: 4px solid #f44336;
+        }
+        
+        .test-item.pending {
+            border-left: 4px solid #ff9800;
+        }
+        
+        .test-name {
+            font-weight: 600;
+            color: var(--text-primary);
+        }
+        
+        .test-status {
+            padding: 0.25rem 0.75rem;
+            border-radius: 12px;
+            font-size: 0.8rem;
+            font-weight: 600;
+            text-transform: uppercase;
+        }
+        
+        .status-passed {
+            background: #e8f5e8;
+            color: #2e7d32;
+        }
+        
+        .status-failed {
+            background: #ffebee;
+            color: #c62828;
+        }
+        
+        .status-pending {
+            background: #fff3e0;
+            color: #f57c00;
+        }
+        
+        .test-duration {
+            color: var(--text-secondary);
+            font-size: 0.9rem;
+        }
+        
+        .test-error {
+            color: #f44336;
+            font-size: 0.9rem;
+            margin-top: 0.5rem;
+        }
+        
+        .back-link {
+            display: inline-block;
+            margin-bottom: 2rem;
+            color: var(--accent-primary);
+            text-decoration: none;
+            font-weight: 600;
+        }
+        
+        .back-link:hover {
+            text-decoration: underline;
+        }
+    </style>
+</head>
+<body>
+    <div class="test-container">
+        <a href="./index.html" class="back-link">← Back to Portfolio</a>
+        
+        <div class="test-header">
+            <h1>🧪 Testing Suite</h1>
+            <p>Comprehensive testing framework for the portfolio website</p>
+        </div>
+        
+        <div class="test-controls">
+            <button class="test-btn test-btn-primary" onclick="runAllTests()">
+                🚀 Run All Tests
+            </button>
+            <button class="test-btn test-btn-secondary" onclick="clearResults()">
+                🗑️ Clear Results
+            </button>
+        </div>
+        
+        <div class="test-results">
+            <div class="test-stats" id="test-stats">
+                <div class="stat-card">
+                    <div class="stat-value" id="total-tests">0</div>
+                    <div class="stat-label">Total Tests</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-value" id="passed-tests">0</div>
+                    <div class="stat-label">Passed</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-value" id="failed-tests">0</div>
+                    <div class="stat-label">Failed</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-value" id="success-rate">0%</div>
+                    <div class="stat-label">Success Rate</div>
+                </div>
+            </div>
+            
+            <ul class="test-list" id="test-list">
+                <li class="test-item pending">
+                    <div>
+                        <div class="test-name">Click "Run All Tests" to start testing</div>
+                    </div>
+                    <div class="test-status status-pending">Pending</div>
+                </li>
+            </ul>
+        </div>
+    </div>
+
+    <!-- Scripts -->
+    <script src="./web/static/js/theme.js"></script>
+    <script src="./web/static/js/testing.js"></script>
+    <script>
+        let testResults = [];
+        
+        function runAllTests() {
+            if (window.testingFramework) {
+                window.testingFramework.runAllTests();
+            } else {
+                alert('Testing framework not available. Please check the console for errors.');
+            }
+        }
+        
+        function clearResults() {
+            testResults = [];
+            updateTestDisplay();
+        }
+        
+        function updateTestDisplay() {
+            const totalTests = testResults.length;
+            const passedTests = testResults.filter(r => r.status === 'passed').length;
+            const failedTests = testResults.filter(r => r.status === 'failed').length;
+            const successRate = totalTests > 0 ? Math.round((passedTests / totalTests) * 100) : 0;
+            
+            document.getElementById('total-tests').textContent = totalTests;
+            document.getElementById('passed-tests').textContent = passedTests;
+            document.getElementById('failed-tests').textContent = failedTests;
+            document.getElementById('success-rate').textContent = successRate + '%';
+            
+            const testList = document.getElementById('test-list');
+            testList.innerHTML = testResults.map(result => `
+                <li class="test-item ${result.status}">
+                    <div>
+                        <div class="test-name">${result.name}</div>
+                        ${result.error ? `<div class="test-error">${result.error}</div>` : ''}
+                    </div>
+                    <div>
+                        <div class="test-status status-${result.status}">${result.status}</div>
+                        <div class="test-duration">${result.duration}ms</div>
+                    </div>
+                </li>
+            `).join('');
+        }
+        
+        // Override the testing framework's display method
+        document.addEventListener('DOMContentLoaded', () => {
+            if (window.testingFramework) {
+                // Override the runAllTests method to update our display
+                const originalRunAllTests = window.testingFramework.runAllTests;
+                window.testingFramework.runAllTests = async function() {
+                    this.results = [];
+                    
+                    for (const test of this.tests) {
+                        try {
+                            await this.runTest(test);
+                        } catch (error) {
+                            this.log(`❌ Test "${test.name}" failed: ${error.message}`, 'error');
+                            test.status = 'failed';
+                            this.results.push({
+                                name: test.name,
+                                status: 'failed',
+                                error: error.message,
+                                duration: 0
+                            });
+                        }
+                    }
+                    
+                    // Update our display
+                    testResults = this.results;
+                    updateTestDisplay();
+                };
+            }
+        });
+    </script>
+</body>
+</html>

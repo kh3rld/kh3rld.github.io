@@ -53,6 +53,11 @@ class TestingFramework {
    * 🎮 Create Test Controls
    */
   createTestControls() {
+    // Only show test controls with explicit debug flag
+    if (!window.location.search.includes('debug=true')) {
+      return;
+    }
+
     const controls = document.createElement('div');
     controls.style.cssText = `
       position: fixed;
@@ -576,15 +581,15 @@ class TestingFramework {
   }
 }
 
-// Initialize testing framework
+// Testing framework completely disabled for production
+// Only enable in development with explicit debug flag
 document.addEventListener('DOMContentLoaded', () => {
-  window.testingFramework = new TestingFramework();
-  
-  // Setup portfolio tests
-  window.testingFramework.setupPortfolioTests();
-  
-  // Auto-run tests in development
-  if (window.location.hostname === 'localhost') {
+  // Only initialize testing framework with explicit debug flag
+  if (window.location.search.includes('debug=true')) {
+    window.testingFramework = new TestingFramework();
+    window.testingFramework.setupPortfolioTests();
+    
+    // Auto-run tests
     setTimeout(() => {
       window.testingFramework.runAllTests();
     }, 2000);
